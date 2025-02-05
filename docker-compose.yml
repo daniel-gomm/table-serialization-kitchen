@@ -1,0 +1,22 @@
+services:
+    text-embeddings-inference:
+        deploy:
+            resources:
+                reservations:
+                    devices:
+                        - driver: nvidia
+                          count: all
+                          capabilities:
+                              - gpu
+        ports:
+            - "8001:80"
+        volumes:
+            - hfmodels:/data
+        pull_policy: always
+        image: ghcr.io/huggingface/text-embeddings-inference:1.5
+        command: --model-id nomic-ai/nomic-embed-text-v1
+
+volumes:
+    hfmodels:
+        external: true
+        name: hfmodels

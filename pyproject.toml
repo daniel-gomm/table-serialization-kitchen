@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=75.8.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tte-playground"
+version = "0.0.1"
+authors = [
+    { name="Daniel Gomm", email="daniel.gomm@cwi.nl" },
+]
+description = "Play with serialization strategies for embedding tabular data as text."
+readme = "README.md"
+requires-python = ">=3.5"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "pandas>=2.2.3",
+    "pyyaml>=6.0.2",
+    "pydantic~=2.10.6",
+    "scikit-learn~=1.6.1"
+]
+
+[project.urls]
+Homepage = "https://github.com/daniel-gomm/tte-playground"
+Issues = "https://github.com/daniel-gomm/tte-playground/issues"
