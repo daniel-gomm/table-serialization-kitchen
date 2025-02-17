@@ -20,7 +20,7 @@ def _nested_list_to_list_of_dicts(nested_list: List[Dict[str, str]]) -> List[Dic
         table_list.append(row_dict)
     return table_list
 
-class TableProcessor(ABC):
+class TableSerializer(ABC):
 
     def serialize_table(self, table: List[Dict[str, str]] | pd.DataFrame | List[List[str]]) -> str:
         if type(table) == pd.DataFrame:
@@ -33,28 +33,8 @@ class TableProcessor(ABC):
     def _serialize_table(self, table: List[Dict]) -> str:
         raise NotImplementedError
 
-class SchemaSerializer(ABC):
 
-    def serialize_schema(self, table: List[Dict[str, str]] | pd.DataFrame | List[List[str]]) -> str:
-        #TODO: Transform table to correct format
-        return self._serialize_schema(table)
-
-    @abstractmethod
-    def _serialize_schema(self, table: List[Dict]) -> str:
-        raise NotImplementedError
-
-
-class ColumnNameSchemaSerializer(SchemaSerializer):
-    #TODO: Implement
-    raise NotImplementedError
-
-
-class SQLSchemaSerializer(SchemaSerializer):
-    #TODO: Implement
-    raise NotImplementedError
-
-
-class JsonTableProcessor(TableProcessor):
+class JsonTableSerializer(TableSerializer):
 
     def _serialize_table(self, table: List[Dict[str, str]]) -> str:
         """
@@ -68,7 +48,7 @@ class JsonTableProcessor(TableProcessor):
             table_string = table_string[:-2] + f'}}}}\n'
         return table_string[:-1]
 
-class MarkdownTableProcessor(TableProcessor):
+class MarkdownTableSerializer(TableSerializer):
 
     def _serialize_table(self, table: List[Dict]) -> str:
         """
@@ -85,3 +65,5 @@ class MarkdownTableProcessor(TableProcessor):
             for value in row.values():
                 table_string += f'{value} | '
         return table_string[:-1]
+
+# TODO: Add CSV, HTML serializer

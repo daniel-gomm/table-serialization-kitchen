@@ -8,7 +8,7 @@ import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.impute import SimpleImputer
 
-from tte_playground.table.processor import _dataframe_to_list_of_dicts
+from table_serialization_kitchen.serializer.table import _dataframe_to_list_of_dicts
 
 
 class RowSampler(ABC):

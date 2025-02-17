@@ -3,12 +3,12 @@ requires = ["setuptools>=75.8.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "tte-playground"
-version = "0.0.1"
+name = "table-serialization-kitchen"
+version = "0.0.2"
 authors = [
     { name="Daniel Gomm", email="daniel.gomm@cwi.nl" },
 ]
-description = "Play with serialization strategies for embedding tabular data as text."
+description = "Boil your tabular data down to serializations."
 readme = "README.md"
 requires-python = ">=3.5"
 classifiers = [
@@ -23,5 +23,5 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/daniel-gomm/tte-playground"
-Issues = "https://github.com/daniel-gomm/tte-playground/issues"
+Homepage = "https://github.com/daniel-gomm/table-serialization-kitchen"
+Issues = "https://github.com/daniel-gomm/table-serialization-kitchen/issues"
