@@ -1,5 +1,7 @@
-# Table Text Embeddings Playground
+[cover_image.webp](.assets/documentation/cover_image.webp)
 
-Play with serialization strategies for embedding tabular data as text.
+# Table Serialization Kitchen
 
-Project is WIP
+Use the Table Serialization Kitchen to boil down your tabular data to serializations.
+
+Disclaimer: This project is still in the baking. The codebase is likely to evolve substantially.
