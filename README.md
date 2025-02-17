@@ -1,4 +1,4 @@
-[cover_image.webp](.assets/documentation/cover_image.webp)
+![Cover Image](.assets/documentation/cover_image.webp "Table Serialization Kitchen Cover")
 
 # Table Serialization Kitchen
 
