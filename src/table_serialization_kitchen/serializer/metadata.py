@@ -14,7 +14,7 @@ class PairwiseMetadataSerializer(MetadataSerializer):
 
     def serialize_metadata(self, metadata: Dict[str, Any]) -> str:
         meta_s = ""
-        for key, value in metadata.values():
+        for key, value in metadata.items():
             meta_s += f"{key}: {value}\n"
         return meta_s[:-1]
 

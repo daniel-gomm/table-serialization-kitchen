@@ -6,46 +6,41 @@ from typing import List, Optional
 
 import pandas as pd
 
+from table_serialization_kitchen.table import Table
+
 
 class TablePreprocessor(ABC):
 
     @abstractmethod
-    def process(self, table:pd.DataFrame, **kwargs) -> pd.DataFrame:
+    def process(self, table:Table) -> Table:
         raise NotImplementedError
 
 
 class ColumnDroppingPreprocessor(TablePreprocessor):
 
-    def __init__(self, columns_to_drop: Optional[List[str]] = None):
-        if columns_to_drop is None:
-            columns_to_drop = []
+    def __init__(self, columns_to_drop: List[str]):
         self.columns_to_drop = columns_to_drop
 
 
-    def process(self, table:pd.DataFrame, columns_to_drop: Optional[List[str]] = None, **kwargs) -> pd.DataFrame:
+    def process(self, table: Table) -> Table:
         if columns_to_drop is None:
             columns_to_drop = self.columns_to_drop
         else:
             columns_to_drop = columns_to_drop + self.columns_to_drop
-        columns_to_drop = [column for column in columns_to_drop if column in table.columns]
-        return table.drop(columns_to_drop, axis=1)
+        columns_to_drop = [column for column in columns_to_drop if column in table.as_dataframe().columns]
+        return Table(table.as_dataframe().drop(columns_to_drop, axis=1))
 
 
 class StringLimitPreprocessor(TablePreprocessor):
 
-    def __init__(self, max_len: Optional[int] = None):
+    def __init__(self, max_len: int):
         self.max_len = max_len
 
 
-    def process(self, table:pd.DataFrame, max_len: Optional[int] = None, **kwargs) -> pd.DataFrame:
-        if max_len is None:
-            max_len = self.max_len
-        if max_len is None:
-            raise ValueError("'max_len' has to be specified either on instantiation of the preprocessor or "
-                             "when calling 'process'.")
-        table = table.copy()
-        for column in table.columns:
-            if table[column].dtype == str:
-                table[column] = table[column].apply(lambda s: s[:max_len])
-        return table
+    def process(self, table:Table) -> Table:
+        table_df = table.as_dataframe().copy()
+        for column in table_df.columns:
+            if table_df[column].dtype == str:
+                table_df[column] = table_df[column].apply(lambda s: s[:self.max_len])
+        return Table(table_df)
 

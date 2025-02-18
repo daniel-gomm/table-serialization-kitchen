@@ -8,8 +8,8 @@ import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.impute import SimpleImputer
 
-from table_serialization_kitchen.serializer.table import _dataframe_to_list_of_dicts
 
+from table_serialization_kitchen.table import Table
 
 class RowSampler(ABC):
 
@@ -18,66 +18,72 @@ class RowSampler(ABC):
 
 
     @abstractmethod
-    def sample(self, table: List[Dict[str, str]]):
+    def sample(self, table: Table) -> Table:
         raise NotImplementedError
 
 class RandomRowSampler(RowSampler):
 
-    def __init__(self, rows_to_sample: int = 10, seed: int = None):
+    def __init__(self, rows_to_sample: int = 10, deterministic: bool = True):
         super().__init__(rows_to_sample)
-        self.random = random.Random(seed)
+        self.deterministic = deterministic
+        self.random = random.Random()
 
-    def sample(self, table: List[Dict[str, str]]) -> List[Dict[str, str]]:
-        if len(table) <= self.rows_to_sample:
+    def sample(self, table: Table) -> Table:
+        table_df = table.as_dataframe()
+        if len(table_df) <= self.rows_to_sample:
             return table
-        sampled_indices = self.random.sample(range(len(table)), self.rows_to_sample)
-        sampled_slice = [table[index] for index in sampled_indices]
-        return sampled_slice
+        seed = None
+        if self.deterministic:
+            seed = len(table_df) * len(table_df.iloc[0])
+        sample_df = table_df.sample(n=self.rows_to_sample, replace=False, random_state=seed)
+        return Table(sample_df.reset_index(drop=True))
 
 class FirstRowSampler(RowSampler):
 
-    def sample(self, table: List[Dict[str, str]]) -> List[Dict[str, str]]:
-        return table[:self.rows_to_sample]
+    def sample(self, table: Table) -> Table:
+        return Table(table.as_dataframe()[:self.rows_to_sample].reset_index(drop=True))
 
 class KMeansRowSampler(RowSampler):
 
-    def __init__(self, rows_to_sample: int = 10, seed: int = None):
+    def __init__(self, rows_to_sample: int = 10, deterministic: bool = True):
         super().__init__(rows_to_sample)
-        self.seed = seed
+        self.deterministic = deterministic
         self.imputer = SimpleImputer(strategy='most_frequent')
-        ss = SeedSequence(seed)
-        self.random_generator = np.random.Generator(PCG64(ss))
 
-    def sample(self, table: List[Dict[str, str]]) -> List[Dict[str, str]]:
-        if len(table) <= self.rows_to_sample:
+    def sample(self, table: Table) -> Table:
+        table_df = table.as_dataframe()
+        if len(table_df) <= self.rows_to_sample:
             return table
-        df = pd.DataFrame(table)
-        df_copy = df.copy()
-        for col in df.columns:
-            unique_values = df[col].unique().shape[0]
-            if unique_values == df.shape[0] or unique_values == 1:
+        seed = None
+        if self.deterministic:
+            seed = len(table_df) * len(table_df.iloc[0])
+        random_generator = np.random.Generator(PCG64(SeedSequence(seed)))
+        df_copy = table_df.copy()
+        for col in table_df.columns:
+            unique_values = table_df[col].unique().shape[0]
+            if unique_values == table_df.shape[0] or unique_values == 1:
                 # Handle id and id-like columns -> dismiss them because they hold no information for clustering
                 # Handle columns with only a single value, which makes them not informative as well.
                 df_copy.drop(col, axis=1, inplace=True)
-            elif df[col].isna().sum() > 0:
+            elif table_df[col].isna().sum() > 0:
                 # Handle columns with NaN value -> impute missing values
                 if df_copy[col].dtype == "object":
                     col_np = df_copy[col].to_numpy()
                     col_np[col_np == None] = "None"
                     df_copy[col] = col_np
                 else:
-                    df_copy[col] = self.imputer.fit_transform(df[col].to_numpy().reshape(-1, 1))
+                    df_copy[col] = self.imputer.fit_transform(table_df[col].to_numpy().reshape(-1, 1))
         if df_copy.shape[1] == 0:
             # In case there are no columns with relevant information k-Means is equivalent to random sampling
-            return RandomRowSampler(rows_to_sample=self.rows_to_sample, seed=self.seed).sample(table)
+            return RandomRowSampler(rows_to_sample=self.rows_to_sample).sample(table)
 
         df_encoded = pd.get_dummies(df_copy, drop_first=True)
 
-        kmeans = KMeans(n_clusters=self.rows_to_sample, random_state=self.seed).fit(df_encoded)
+        kmeans = KMeans(n_clusters=self.rows_to_sample, random_state=seed).fit(df_encoded)
 
-        df['cluster'] = kmeans.labels_
+        table_df['cluster'] = kmeans.labels_
 
-        sampled_rows = (df.groupby('cluster').apply(lambda x: x.sample(1, random_state=self.random_generator))
+        sampled_rows = (table_df.groupby('cluster').apply(lambda x: x.sample(1, random_state=random_generator))
                         .reset_index(drop=True).drop('cluster', axis=1))
 
-        return _dataframe_to_list_of_dicts(sampled_rows)
+        return Table(sampled_rows)

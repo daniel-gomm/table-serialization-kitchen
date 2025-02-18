@@ -1,8 +1,10 @@
+import inspect
 import json
-from typing import List, Dict, Self, Optional, Any, Type, TypeVar
+from typing import List, Dict, Optional, Any, Type, TypeVar
 
 import pandas as pd
 
+from table_serialization_kitchen.table import Table
 from table_serialization_kitchen import SerializationRecipe
 from table_serialization_kitchen.serializer.metadata import MetadataSerializer, PairwiseMetadataSerializer, JSONMetadataSerializer
 from table_serialization_kitchen.table.preprocessor import TablePreprocessor, ColumnDroppingPreprocessor, \
@@ -28,6 +30,7 @@ class Serializer:
 
 
     def serialize(self, table: List[Dict[str, str]] | pd.DataFrame | List[List[str]], metadata: Dict[str, Any]) -> str:
+        table = Table(table)
         kwargs = {}
         if self.metadata_serializer is not None:
             kwargs["metadata_contents"] = self.metadata_serializer.serialize_metadata(metadata)
@@ -42,6 +45,20 @@ class Serializer:
             kwargs["table_contents"] = self.table_serializer.serialize_table(sub_table)
         return self.recipe.cook_recipe(**kwargs)
 
+
+def _extract_instance_save_state(instance: Any) -> Dict[str, Any]:
+    constructor_args = inspect.signature(instance.__init__).parameters
+    args_data = {}
+    for param in constructor_args:
+        if param in ['args', 'kwargs']:
+            continue
+        try:
+            args_data[param] = getattr(instance, param)
+        except AttributeError:
+            raise AttributeError(f"Instance of type {type(instance).__name__} has the constructor parameter {param} but"
+                                 f" it does not have the {param} attribute. Make sure that constructor parameters and "
+                                 f"class attributes match.")
+    return {"name": type(instance).__name__, "args": args_data}
 
 T = TypeVar('T')
 
@@ -78,8 +95,8 @@ class SerializerKitchen:
         return registry[instance_name](**kwargs)
 
     @staticmethod
-    def _register_class(registered_class: Type[T], registry: Dict[str, Type[T]], type: Type) -> None:
-        assert isinstance(registered_class, type) and issubclass(registered_class, type), \
+    def _register_class(registered_class: Type[T], registry: Dict[str, Type[T]], registered_type: Type) -> None:
+        assert isinstance(registered_class, type) and issubclass(registered_class, registered_type), \
             (f"Cannot register {registered_class.__name__} because {registered_class.__name__} is not "
              f"a subclass of {type.__name__}")
         registry[registered_class.__name__] = registered_class
@@ -108,7 +125,8 @@ class SerializerKitchen:
     def create_metadata_serializer(self, metadata_serializer_name: str, **kwargs: Any) -> MetadataSerializer:
         return self._create_instance(metadata_serializer_name, self._metadata_serializer_pantry, **kwargs)
 
-    def create_row_sampler(self, row_sampler_name: str, **kwargs: Any) -> RowSampler:
+    def create_row_sampler(self, row_sampler_name: str, rows_to_sample: int = 10, **kwargs: Any) -> RowSampler:
+        kwargs["rows_to_sample"] = rows_to_sample
         return self._create_instance(row_sampler_name, self._row_sampler_pantry, **kwargs)
 
     def create_table_preprocessor(self, table_preprocessor_name: str, **kwargs: Any) -> TablePreprocessor:
@@ -126,21 +144,16 @@ class SerializerKitchen:
         }
 
         if serializer.schema_serializer is not None:
-            serializer_config["schema_serializer"] = {"name": type(serializer.schema_serializer).__name__,
-                                                      "args": vars(serializer.schema_serializer)}
+            serializer_config["schema_serializer"] = _extract_instance_save_state(serializer.schema_serializer)
         if serializer.table_serializer is not None:
-            serializer_config["table_serializer"] = {"name": type(serializer.table_serializer).__name__,
-                                                     "args": vars(serializer.table_serializer)}
+            serializer_config["table_serializer"] = _extract_instance_save_state(serializer.table_serializer)
         if serializer.metadata_serializer is not None:
-            serializer_config["metadata_serializer"] = {"name": type(serializer.metadata_serializer).__name__,
-                                                        "args": vars(serializer.metadata_serializer)}
+            serializer_config["metadata_serializer"] = _extract_instance_save_state(serializer.metadata_serializer)
         if serializer.row_sampler is not None:
-            serializer_config["row_sampler"] = {"name": type(serializer.row_sampler).__name__,
-                                                "args": vars(serializer.row_sampler)}
+            serializer_config["row_sampler"] = _extract_instance_save_state(serializer.row_sampler)
         if len(serializer.table_preprocessors) > 0:
             for table_preprocessor in serializer.table_preprocessors:
-                serializer_config["table_preprocessors"].append({"name": type(table_preprocessor).__name__,
-                                                                "args": vars(table_preprocessor)})
+                serializer_config["table_preprocessors"].append(_extract_instance_save_state(table_preprocessor))
 
         return json.dumps(serializer_config)
 
