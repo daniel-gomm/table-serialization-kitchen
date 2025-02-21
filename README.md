@@ -16,7 +16,7 @@ To install Table Serialization Kitchen from source, clone the repository and run
 directory of the repository:
 
 ```shell
-pip install -e .
+pip install . -e
 ```
 
 ## Usage
