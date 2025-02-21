@@ -4,14 +4,14 @@ from typing import List, Dict, Optional, Any, Type, TypeVar
 
 import pandas as pd
 
-from table_serialization_kitchen.table import Table
-from table_serialization_kitchen import SerializationRecipe
-from table_serialization_kitchen.serializer.metadata import MetadataSerializer, PairwiseMetadataSerializer, JSONMetadataSerializer
-from table_serialization_kitchen.table.preprocessor import TablePreprocessor, ColumnDroppingPreprocessor, \
+from tableserializer.table import Table
+from tableserializer import SerializationRecipe
+from tableserializer.serializer.metadata import MetadataSerializer, PairwiseMetadataSerializer, JSONMetadataSerializer
+from tableserializer.table.preprocessor import TablePreprocessor, ColumnDroppingPreprocessor, \
     StringLimitPreprocessor
-from table_serialization_kitchen.table.row_sampler import RowSampler, RandomRowSampler, FirstRowSampler, KMeansRowSampler
-from table_serialization_kitchen.serializer.table import TableSerializer, JsonTableSerializer, MarkdownTableSerializer
-from table_serialization_kitchen.serializer.schema import SchemaSerializer, ColumnNameSchemaSerializer, SQLSchemaSerializer
+from tableserializer.table.row_sampler import RowSampler, RandomRowSampler, FirstRowSampler, KMeansRowSampler
+from tableserializer.serializer.table import TableSerializer, JsonTableSerializer, MarkdownTableSerializer
+from tableserializer.serializer.schema import SchemaSerializer, ColumnNameSchemaSerializer, SQLSchemaSerializer
 
 class Serializer:
 

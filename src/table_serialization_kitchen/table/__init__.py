@@ -1,1 +1,0 @@
-from table_serialization_kitchen.table.table import Table

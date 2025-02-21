@@ -1,0 +1,1 @@
+from tableserializer.serializer.serializer import Serializer, SerializerKitchen

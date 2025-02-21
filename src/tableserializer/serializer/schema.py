@@ -3,7 +3,7 @@ from typing import List, Dict, Any, Optional
 
 import pandas as pd
 
-from table_serialization_kitchen.table import Table
+from tableserializer.table import Table
 
 
 class SchemaSerializer(ABC):

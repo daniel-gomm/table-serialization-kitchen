@@ -6,7 +6,7 @@ from typing import List, Optional
 
 import pandas as pd
 
-from table_serialization_kitchen.table import Table
+from tableserializer.table import Table
 
 
 class TablePreprocessor(ABC):

@@ -9,7 +9,7 @@ from sklearn.cluster import KMeans
 from sklearn.impute import SimpleImputer
 
 
-from table_serialization_kitchen.table import Table
+from tableserializer.table import Table
 
 class RowSampler(ABC):
 
