@@ -7,16 +7,35 @@ from tableserializer.table import Table
 
 
 class SchemaSerializer(ABC):
+    """
+    Serializer for the schema captured in the table.
+    """
 
     @abstractmethod
     def serialize_schema(self, table: Table, metadata: Optional[Dict[str, Any]] = None) -> str:
+        """
+        Serialize the schema captured in the table.
+        :param table: The table whose schema should be serialized.
+        :type table: Table
+        :param metadata: Optional metadata about the table.
+        :type metadata: Optional[Dict[str, Any]]
+        :return: Serialized schema string.
+        :rtype: str
+        """
         raise NotImplementedError
 
 
 
 class ColumnNameSchemaSerializer(SchemaSerializer):
+    """
+    Schema serializer that serializes the schema as a separated list of column names.
+    """
 
     def __init__(self, column_name_separator: str = "|"):
+        """
+        :param column_name_separator: Separator between column names.
+        :type column_name_separator: str
+        """
         self.column_name_separator = column_name_separator
 
     def serialize_schema(self, table: Table, metadata: Optional[Dict[str, Any]] = None) -> str:
@@ -25,8 +44,17 @@ class ColumnNameSchemaSerializer(SchemaSerializer):
 
 
 class SQLSchemaSerializer(SchemaSerializer):
+    """
+    Schema serializer that serializes the schema as a SQL CREATE TABLE statement.
+    """
 
     def __init__(self, metadata_table_name_field: Optional[str] = None, default_table_name: str = "table"):
+        """
+        :param metadata_table_name_field: Optional: Provide the name of the field in the metadata that specifies the table name.
+        :type metadata_table_name_field: Optional[str]
+        :param default_table_name: Default table name used in schema when no specific table name is available through the metadata.
+        :type default_table_name: str
+        """
         self.metadata_table_name_field = metadata_table_name_field
         self.default_table_name = default_table_name
 

@@ -2,19 +2,29 @@ from abc import abstractmethod, ABC
 
 from tableserializer.table import Table
 
-class TableSerializer(ABC):
+class RawTableSerializer(ABC):
+    """
+    Serializer for serializing raw tables to string representations.
+    """
 
     @abstractmethod
     def serialize_table(self, table: Table) -> str:
+        """
+        Serialize a raw table to string.
+        :param table: Raw table to serialize.
+        :type table: Table
+        :return: Serialized raw table.
+        :rtype: str
+        """
         raise NotImplementedError
 
 
-class JsonTableSerializer(TableSerializer):
+class JsonRawTableSerializer(RawTableSerializer):
+    """
+    Serializer for serializing raw tables to row-wise JSON representations.
+    """
 
     def serialize_table(self, table: Table) -> str:
-        """
-        Converts a table into a json representation of its contents
-        """
         table_string = ""
         for index, row in enumerate(table.as_list_of_dicts()):
             table_string += f'{{"{index}": {{'
@@ -23,12 +33,12 @@ class JsonTableSerializer(TableSerializer):
             table_string = table_string[:-2] + f'}}}}\n'
         return table_string[:-1]
 
-class MarkdownTableSerializer(TableSerializer):
+class MarkdownRawTableSerializer(RawTableSerializer):
+    """
+    Serializer for serializing raw tables to markdown representations.
+    """
 
     def serialize_table(self, table: Table) -> str:
-        """
-        Converts a table into a markdown representation of its contents
-        """
         table_string = "| "
         divider_string = "|"
         for header in table.as_dataframe().columns:

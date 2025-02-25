@@ -6,8 +6,16 @@ TABLE_KEY = "TABLE"
 
 
 class SerializationRecipe:
+    """
+    The SerializationRecipe details the structure of the table serialization.
+    """
 
     def __init__(self, recipe: str):
+        """
+        An instruction of how to structure the table serialization.
+        :param recipe: String representation of the overall structure of the serialization with placeholders that are
+        dynamically filled in on a per-table basis.
+        """
         self._recipe = recipe
         self._validate_recipe()
 
@@ -21,6 +29,17 @@ class SerializationRecipe:
 
     def cook_recipe(self, schema_contents: str = None, metadata_contents: str = None,
                     table_contents: str = None) -> str:
+        """
+        Fill-in the values for the placeholder values.
+        :param schema_contents: Schema contents to fill in.
+        :type schema_contents: str
+        :param metadata_contents: Metadata contents to fill in.
+        :type metadata_contents: str
+        :param table_contents: Table contents to fill in.
+        :type table_contents: str
+        :return: Table serialization according to the schema.
+        :rtype: str
+        """
         kwargs = {}
         if schema_contents is not None:
             if SCHEMA_KEY not in self._fields:
@@ -37,4 +56,9 @@ class SerializationRecipe:
         return self._recipe.format(**kwargs)
 
     def get_raw_recipe(self) -> str:
+        """
+        Get the raw recipe.
+        :return: The raw recipe as a string.
+        :rtype: str
+        """
         return self._recipe

@@ -4,13 +4,27 @@ from typing import Dict, Any
 
 
 class MetadataSerializer(ABC):
+    """
+    Serializer for table-related metadata objects. Defines a strategy for serializing the metadata contents in s
+    specific way.
+    """
 
     @abstractmethod
     def serialize_metadata(self, metadata: Dict[str, Any]) -> str:
+        """
+        Serialize the given metadata.
+        :param metadata: Metadata to serialize.
+        :type metadata: Dict[str, Any]
+        :return: String representation of the given metadata.
+        :rtype: str
+        """
         raise NotImplementedError
 
 
 class PairwiseMetadataSerializer(MetadataSerializer):
+    """
+    Metadata serializer that serializes entries in the metadata dictionary as "key: value" pairs.
+    """
 
     def serialize_metadata(self, metadata: Dict[str, Any]) -> str:
         meta_s = ""
@@ -20,6 +34,9 @@ class PairwiseMetadataSerializer(MetadataSerializer):
 
 
 class JSONMetadataSerializer(MetadataSerializer):
+    """
+    Metadata serializer that serializes the full metadata dictionary as JSON.
+    """
 
     def serialize_metadata(self, metadata: Dict[str, Any]) -> str:
         return json.dumps(metadata)

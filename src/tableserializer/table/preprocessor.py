@@ -8,13 +8,27 @@ from tableserializer.table import Table
 
 
 class TablePreprocessor(ABC):
+    """
+    A table preprocessor transforms a table before serialization. Generally, table preprocessors can augment the tabular
+    data, compress it (e.g., by removing id columns), ...
+    """
 
     @abstractmethod
     def process(self, table:Table) -> Table:
+        """
+        Transform a table before serialization.
+        :param table: Table to preprocess.
+        :type table: Table
+        :return: Preprocessed table.
+        :rtype: Table
+        """
         raise NotImplementedError
 
 
 class ColumnDroppingPreprocessor(TablePreprocessor):
+    """
+    Table preprocessor that transforms a table by dropping specified columns.
+    """
 
     def __init__(self, columns_to_drop: List[str]):
         self.columns_to_drop = columns_to_drop
@@ -25,7 +39,10 @@ class ColumnDroppingPreprocessor(TablePreprocessor):
         return Table(table.as_dataframe().drop(columns_to_drop, axis=1))
 
 
-class StringLimitPreprocessor(TablePreprocessor):
+class StringTruncationPreprocessor(TablePreprocessor):
+    """
+    Table preprocessor that truncates strings in the table to a set maximum length before serialization.
+    """
 
     def __init__(self, max_len: int):
         self.max_len = max_len
