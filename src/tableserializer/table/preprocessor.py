@@ -2,9 +2,7 @@
 # Generally, preprocessors can limit the resulting serialization length
 
 from abc import ABC, abstractmethod
-from typing import List, Optional
-
-import pandas as pd
+from typing import List
 
 from tableserializer.table import Table
 
@@ -23,11 +21,7 @@ class ColumnDroppingPreprocessor(TablePreprocessor):
 
 
     def process(self, table: Table) -> Table:
-        if columns_to_drop is None:
-            columns_to_drop = self.columns_to_drop
-        else:
-            columns_to_drop = columns_to_drop + self.columns_to_drop
-        columns_to_drop = [column for column in columns_to_drop if column in table.as_dataframe().columns]
+        columns_to_drop = [column for column in self.columns_to_drop if column in table.as_dataframe().columns]
         return Table(table.as_dataframe().drop(columns_to_drop, axis=1))
 
 

@@ -1,7 +1,4 @@
 from abc import abstractmethod, ABC
-from typing import List, Dict
-
-import pandas as pd
 
 from tableserializer.table import Table
 
