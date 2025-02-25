@@ -51,4 +51,15 @@ class MarkdownRawTableSerializer(RawTableSerializer):
                 table_string += f'{value} | '
         return table_string[:-1]
 
-# TODO: Add CSV, HTML serializer
+class CSVRawTableSerializer(RawTableSerializer):
+
+    def __init__(self, separator=","):
+        self.separator = separator
+
+    def serialize_raw_table(self, table: Table) -> str:
+        return table.as_dataframe().to_csv(index=False, sep=self.separator)
+
+class LatexRawTableSerializer(RawTableSerializer):
+
+    def serialize_raw_table(self, table: Table) -> str:
+        return table.as_dataframe().to_latex(index=False)
