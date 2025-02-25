@@ -8,7 +8,7 @@ class RawTableSerializer(ABC):
     """
 
     @abstractmethod
-    def serialize_table(self, table: Table) -> str:
+    def serialize_raw_table(self, table: Table) -> str:
         """
         Serialize a raw table to string.
         :param table: Raw table to serialize.
@@ -19,12 +19,12 @@ class RawTableSerializer(ABC):
         raise NotImplementedError
 
 
-class JsonRawTableSerializer(RawTableSerializer):
+class JSONRawTableSerializer(RawTableSerializer):
     """
     Serializer for serializing raw tables to row-wise JSON representations.
     """
 
-    def serialize_table(self, table: Table) -> str:
+    def serialize_raw_table(self, table: Table) -> str:
         table_string = ""
         for index, row in enumerate(table.as_list_of_dicts()):
             table_string += f'{{"{index}": {{'
@@ -38,7 +38,7 @@ class MarkdownRawTableSerializer(RawTableSerializer):
     Serializer for serializing raw tables to markdown representations.
     """
 
-    def serialize_table(self, table: Table) -> str:
+    def serialize_raw_table(self, table: Table) -> str:
         table_string = "| "
         divider_string = "|"
         for header in table.as_dataframe().columns:

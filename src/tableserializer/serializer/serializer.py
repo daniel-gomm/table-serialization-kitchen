@@ -10,7 +10,7 @@ from tableserializer.serializer.metadata import MetadataSerializer, PairwiseMeta
 from tableserializer.table.preprocessor import TablePreprocessor, ColumnDroppingPreprocessor, \
     StringTruncationPreprocessor
 from tableserializer.table.row_sampler import RowSampler, RandomRowSampler, FirstRowSampler, KMeansRowSampler
-from tableserializer.serializer.table import RawTableSerializer, JsonRawTableSerializer, MarkdownRawTableSerializer
+from tableserializer.serializer.table import RawTableSerializer, JSONRawTableSerializer, MarkdownRawTableSerializer
 from tableserializer.serializer.schema import SchemaSerializer, ColumnNameSchemaSerializer, SQLSchemaSerializer
 
 class Serializer:
@@ -68,7 +68,7 @@ class Serializer:
                 sub_table = self.row_sampler.sample(table)
             for table_preprocessor in self.table_preprocessors:
                 sub_table = table_preprocessor.process(sub_table)
-            kwargs["table_contents"] = self.table_serializer.serialize_table(sub_table)
+            kwargs["table_contents"] = self.table_serializer.serialize_raw_table(sub_table)
         return self.recipe.cook_recipe(**kwargs)
 
 
@@ -104,7 +104,7 @@ class SerializerKitchen:
         self.register_schema_serializer_class(ColumnNameSchemaSerializer)
         self.register_schema_serializer_class(SQLSchemaSerializer)
 
-        self.register_raw_table_serializer_class(JsonRawTableSerializer)
+        self.register_raw_table_serializer_class(JSONRawTableSerializer)
         self.register_raw_table_serializer_class(MarkdownRawTableSerializer)
 
         self.register_metadata_serializer_class(PairwiseMetadataSerializer)
