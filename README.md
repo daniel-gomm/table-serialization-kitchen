@@ -1,4 +1,4 @@
-from tableserializer.table import Tablefrom tableserializer.table import Tablefrom tableserializer.table import Tablefrom tableserializer.table import Tablefrom typing import Anyfrom typing import Dict![Cover Image](.assets/documentation/cover_image.webp "Table Serialization Kitchen Cover")
+![Cover Image](.assets/documentation/cover_image.webp "Table Serialization Kitchen Cover")
 
 # Table Serialization Kitchen
 
