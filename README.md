@@ -1,4 +1,4 @@
-from typing import Anyfrom typing import Dict![Cover Image](.assets/documentation/cover_image.webp "Table Serialization Kitchen Cover")
+from tableserializer.table import Tablefrom tableserializer.table import Tablefrom tableserializer.table import Tablefrom tableserializer.table import Tablefrom typing import Anyfrom typing import Dict![Cover Image](.assets/documentation/cover_image.webp "Table Serialization Kitchen Cover")
 
 # Table Serialization Kitchen
 
@@ -40,6 +40,7 @@ instance. The recipe contains placeholder values that are dynamically filled-in 
 ```python
 from tableserializer import SerializationRecipe
 
+# Recipe with all placeholders
 recipe = SerializationRecipe(
 """Metadata: 
 {META}
@@ -51,6 +52,7 @@ Table:
 {TABLE}
 """)
 
+# Recipe with a placeholder for raw table contents only
 simple_recipe = SerializationRecipe(
 """Table:
 {TABLE}
@@ -80,6 +82,8 @@ from tableserializer.serializer.metadata import MetadataSerializer
 class ExampleMetadataSerializer(MetadataSerializer):
 
     def serialize_metadata(self, metadata: Dict[str, Any]) -> str:
+        # This metadata serializer serializes the metadata as a newline separated concatenation of the values in the 
+        # metadata dictionary
         serialization = ""
         for value in metadata.values():
             serialization += str(value) + "\n"
@@ -106,6 +110,7 @@ from tableserializer.serializer.schema import SchemaSerializer
 class ExampleSchemaSerializer(SchemaSerializer):
     
     def serialize_schema(self, table: Table, metadata: Optional[Dict[str, Any]] = None) -> str:
+        # This schema serializer serializes the schema as a comma separated list of column names
         serialization = ""
         for column_name in table.as_dataframe().columns():
             serialization += column_name + ", "
@@ -132,7 +137,8 @@ from tableserializer.serializer.table import RawTableSerializer
 class ExampleRawTableSerializer(RawTableSerializer):
     
     def serialize_raw_table(self, table: Table) -> str:
-        return table.as_dataframe().to_csv()
+        # This raw table serializer serializes the table as csv
+        return table.as_dataframe().to_csv(index=False)
 ```
 
 Table serialization kitchen provides a collection of default implementations of the `RawTableSerializer` base class:
@@ -144,11 +150,57 @@ Table serialization kitchen provides a collection of default implementations of 
 
 ##### Row Sampler
 
-> WIP: Section still in the baking!
+A row sampler is tasked with sampling a set number of rows from a table to limit the size of the table for the
+serialization. Row samplers extend the `RowSampler` base class. Rows are sampled through the `sample` function that a
+`RowSerializer` implementation must override.
+
+```python
+from tableserializer.table.row_sampler import RowSampler
+from tableserializer.table import Table
+
+class ExampleRowSampler(RowSampler):
+    
+    def sample(self, table: Table) -> Table:
+        # This row sampler samples the last rows from the dataframe
+        last_rows_only_df = table.as_dataframe()[-self.rows_to_sample:].reset_index(drop=True)
+        return Table(last_rows_only_df)
+```
+
+Table serialization kitchen provides a collection of default implementations of the `RowSampler` base class:
+
+- `RandomRowSampler`: Samples rows at random.
+- `FirstRowSampler`: Samples the first rows of the table.
+- `KMeansRowSampler`: Samples a diverse set of rows by employing k-means clustering.
 
 ### Table Preprocessors
 
-> WIP: Section still in the baking!
+Table preprocessors are employed to transform the raw table before serialization. One motivation for this is to compress
+the table contents. For example, a table containing overly long string values may make the table serializations too long
+for embedding models. Table preprocessors extend the `TablePreprocessor` base class. An implementation must override the
+`process` function. The `apply_before_row_sampling` field specifies if the table preprocessor is executed before or
+after rows are sampled. Filtering columns may make sense to be done before row sampling, whereas preprocessors that
+compress strings (e.g., by generating summaries) may best be applied after row sampling.
+
+```python
+from tableserializer.table.preprocessor import TablePreprocessor
+from tableserializer.table import Table
+
+class ExampleTablePreprocessor(TablePreprocessor):
+    
+    def __init__(self):
+        super().__init__(apply_before_row_sampling=True)
+    
+    def process(self, table: Table) -> Table:
+        # Preprocessor that removes the first column of the table
+        table_df = table.as_dataframe()
+        transformed_df = table_df.drop(columns=table_df.columns[0])
+        return Table(transformed_df)
+```
+
+Table serialization kitchen provides two default implementations of the `TablePreprocessor` base class:
+
+- `ColumnDroppingPreprocessor`: Transforms a table by dropping specified columns.
+- `StringTruncationPreprocessor`: Truncates all strings in the table to a set maximum length before serialization.
 
 ### Table Serialization Kitchen
 
