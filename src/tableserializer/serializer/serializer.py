@@ -64,9 +64,13 @@ class Serializer:
             kwargs["schema_contents"] = self.schema_serializer.serialize_schema(table, metadata)
         if self.table_serializer is not None:
             sub_table = table
+            for table_preprocessor in [processor for processor in self.table_preprocessors
+                                       if processor.apply_before_row_sampling]:
+                sub_table = table_preprocessor.process(sub_table)
             if self.row_sampler is not None:
-                sub_table = self.row_sampler.sample(table)
-            for table_preprocessor in self.table_preprocessors:
+                sub_table = self.row_sampler.sample(sub_table)
+            for table_preprocessor in [processor for processor in self.table_preprocessors
+                                       if not processor.apply_before_row_sampling]:
                 sub_table = table_preprocessor.process(sub_table)
             kwargs["table_contents"] = self.table_serializer.serialize_raw_table(sub_table)
         return self.recipe.cook_recipe(**kwargs)

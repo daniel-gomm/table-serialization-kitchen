@@ -13,6 +13,13 @@ class TablePreprocessor(ABC):
     data, compress it (e.g., by removing id columns), ...
     """
 
+    def __init__(self, apply_before_row_sampling: bool = False):
+        """
+        :param apply_before_row_sampling: Set to true to execute the preprocessor before the row sampling.
+        :type apply_before_row_sampling: bool
+        """
+        self.apply_before_row_sampling = apply_before_row_sampling
+
     @abstractmethod
     def process(self, table:Table) -> Table:
         """
@@ -30,7 +37,14 @@ class ColumnDroppingPreprocessor(TablePreprocessor):
     Table preprocessor that transforms a table by dropping specified columns.
     """
 
-    def __init__(self, columns_to_drop: List[str]):
+    def __init__(self, columns_to_drop: List[str], apply_before_row_sampling=False):
+        """
+        :param columns_to_drop: List of column names of columns to drop.
+        :type columns_to_drop: List[str]
+        :param apply_before_row_sampling: Set to true to execute the preprocessor before the row sampling.
+        :type apply_before_row_sampling: bool
+        """
+        super().__init__(apply_before_row_sampling=apply_before_row_sampling)
         self.columns_to_drop = columns_to_drop
 
 
@@ -44,7 +58,14 @@ class StringTruncationPreprocessor(TablePreprocessor):
     Table preprocessor that truncates strings in the table to a set maximum length before serialization.
     """
 
-    def __init__(self, max_len: int):
+    def __init__(self, max_len: int, apply_before_row_sampling=False):
+        """
+        :param max_len: Maximum length of strings for truncation.
+        :type max_len: int
+        :param apply_before_row_sampling: Set to true to execute the preprocessor before the row sampling.
+        :type apply_before_row_sampling: bool
+        """
+        super().__init__(apply_before_row_sampling=apply_before_row_sampling)
         self.max_len = max_len
 
 
