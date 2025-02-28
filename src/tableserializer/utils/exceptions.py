@@ -1,0 +1,2 @@
+class ClassDefinitionError(Exception):
+    pass

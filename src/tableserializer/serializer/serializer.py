@@ -1,3 +1,4 @@
+import abc
 import inspect
 import json
 from typing import List, Dict, Optional, Any, Type, TypeVar
@@ -12,6 +13,8 @@ from tableserializer.table.preprocessor import TablePreprocessor, ColumnDropping
 from tableserializer.table.row_sampler import RowSampler, RandomRowSampler, FirstRowSampler, KMeansRowSampler
 from tableserializer.serializer.table import RawTableSerializer, JSONRawTableSerializer, MarkdownRawTableSerializer
 from tableserializer.serializer.schema import SchemaSerializer, ColumnNameSchemaSerializer, SQLSchemaSerializer
+from tableserializer.utils.exceptions import ClassDefinitionError
+
 
 class Serializer:
     """
@@ -44,7 +47,6 @@ class Serializer:
         if table_preprocessors is None:
             table_preprocessors = []
         self.table_preprocessors = table_preprocessors
-
 
     def serialize(self, table: List[Dict[str, str]] | pd.DataFrame | List[List[str]], metadata: Dict[str, Any]) -> str:
         """
@@ -90,7 +92,47 @@ def _extract_instance_save_state(instance: Any) -> Dict[str, Any]:
                                  f"class attributes match.")
     return {"name": type(instance).__name__, "args": args_data}
 
+
+def _verify_constructor_args(cls: Type) -> None:
+    # Check that the constructor argument keys and the fields of a given class align
+    # --> constructor args ⊆ instance attributes
+    cls_copy = cls
+    all_constructor_args = set()
+    all_instance_attributes = set()
+    while cls != abc.ABC:
+        # Recursively trace up the class tree and collect constructor arguments and instance attributes set at each level
+        if '__init__' not in cls.__dict__:
+            cls = cls.__base__
+            continue
+
+        constructor_args = inspect.signature(cls.__init__).parameters
+
+        all_constructor_args = all_constructor_args.union(constructor_args)
+
+        init_code = inspect.getsource(cls.__init__)
+        lines = init_code.split('\n')
+        fields = []
+        for line in lines:
+            line = line.strip()
+            if line.startswith('self.'):
+                field_name = line.split('=')[0].split('.')[1].strip()
+                fields.append(field_name)
+
+        all_instance_attributes = all_instance_attributes.union(fields)
+
+        cls = cls.__base__
+
+    for constructor_arg in all_constructor_args:
+        if constructor_arg == "self":
+            continue
+        if constructor_arg not in all_instance_attributes:
+            raise ClassDefinitionError(f"Class {cls_copy.__name__} has the constructor parameter {constructor_arg} but "
+                                       f"lacks a field of the same name.")
+
+
+
 T = TypeVar('T')
+
 
 class SerializerKitchen:
     """
@@ -132,6 +174,7 @@ class SerializerKitchen:
         assert isinstance(registered_class, type) and issubclass(registered_class, registered_type), \
             (f"Cannot register {registered_class.__name__} because {registered_class.__name__} is not "
              f"a subclass of {type.__name__}")
+        _verify_constructor_args(registered_class)
         registry[registered_class.__name__] = registered_class
 
     def register_schema_serializer_class(self, schema_serializer_class: Type[SchemaSerializer]) -> None:
