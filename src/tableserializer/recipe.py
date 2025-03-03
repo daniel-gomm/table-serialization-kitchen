@@ -1,4 +1,5 @@
 import string
+from typing import List
 
 SCHEMA_KEY = "SCHEMA"
 METADATA_KEY = "META"
@@ -10,14 +11,20 @@ class SerializationRecipe:
     The SerializationRecipe details the structure of the table serialization.
     """
 
-    def __init__(self, recipe: str):
+    def __init__(self, recipe: str, identifier: str = None):
         """
         An instruction of how to structure the table serialization.
         :param recipe: String representation of the overall structure of the serialization with placeholders that are
         dynamically filled in on a per-table basis.
+        :type recipe: str
+        :param identifier: Optional identifier for the table.
+        :type identifier: Optional[str]
         """
         self._recipe = recipe
         self._validate_recipe()
+        if identifier is None:
+            identifier = str(hash(self._recipe) % 1000000)
+        self._identifier = identifier
 
     def _validate_recipe(self) -> None:
         fields = [field_name for _, field_name, _, _ in string.Formatter().parse(self._recipe) if field_name is not None]
@@ -62,3 +69,9 @@ class SerializationRecipe:
         :rtype: str
         """
         return self._recipe
+
+    def get_fields(self) -> List[str]:
+        return self._fields
+
+    def __str__(self) -> str:
+        return self._identifier

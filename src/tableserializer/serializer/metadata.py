@@ -2,8 +2,10 @@ import json
 from abc import ABC, abstractmethod
 from typing import Dict, Any
 
+from tableserializer.serializer.common import SignatureProvidingInstance
 
-class MetadataSerializer(ABC):
+
+class MetadataSerializer(ABC, SignatureProvidingInstance):
     """
     Serializer for table-related metadata objects. Defines a strategy for serializing the metadata contents in s
     specific way.

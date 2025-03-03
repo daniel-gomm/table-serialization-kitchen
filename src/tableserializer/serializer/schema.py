@@ -3,10 +3,11 @@ from typing import Dict, Any, Optional
 
 import pandas as pd
 
+from tableserializer.serializer.common import SignatureProvidingInstance
 from tableserializer.table import Table
 
 
-class SchemaSerializer(ABC):
+class SchemaSerializer(ABC, SignatureProvidingInstance):
     """
     Serializer for the schema captured in the table.
     """

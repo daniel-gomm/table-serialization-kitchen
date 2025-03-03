@@ -7,10 +7,10 @@ import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.impute import SimpleImputer
 
-
+from tableserializer.serializer.common import SignatureProvidingInstance
 from tableserializer.table import Table
 
-class RowSampler(ABC):
+class RowSampler(ABC, SignatureProvidingInstance):
     """
     A row sampler selects a subset of rows based on a predefined policy.
     """

@@ -1,8 +1,9 @@
 from abc import abstractmethod, ABC
 
+from tableserializer.serializer.common import SignatureProvidingInstance
 from tableserializer.table import Table
 
-class RawTableSerializer(ABC):
+class RawTableSerializer(ABC, SignatureProvidingInstance):
     """
     Serializer for serializing raw tables to string representations.
     """

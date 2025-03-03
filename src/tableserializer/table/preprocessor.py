@@ -4,10 +4,11 @@
 from abc import ABC, abstractmethod
 from typing import List
 
+from tableserializer.serializer.common import SignatureProvidingInstance
 from tableserializer.table import Table
 
 
-class TablePreprocessor(ABC):
+class TablePreprocessor(ABC, SignatureProvidingInstance):
     """
     A table preprocessor transforms a table before serialization. Generally, table preprocessors can augment the tabular
     data, compress it (e.g., by removing id columns), ...
