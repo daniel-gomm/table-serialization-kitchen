@@ -90,4 +90,4 @@ class Serializer:
         if len(self.table_preprocessors) > 0:
             for table_preprocessor in self.table_preprocessors:
                 signature += "_" + str(table_preprocessor)
-        return signature
+        return sanitize_string(signature)
