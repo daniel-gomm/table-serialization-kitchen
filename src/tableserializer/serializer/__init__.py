@@ -1,1 +1,1 @@
-from tableserializer.serializer.serializer import Serializer, SerializerKitchen
+from tableserializer.serializer.serializer import Serializer
