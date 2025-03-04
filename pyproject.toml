@@ -23,3 +23,9 @@ dependencies = [
 [project.urls]
 Homepage = "https://github.com/daniel-gomm/table-serialization-kitchen"
 Issues = "https://github.com/daniel-gomm/table-serialization-kitchen/issues"
+
+[project.optional-dependencies]
+target = [
+    "target_benchmark>=0.1.1",
+    "pytei-client>=0.1.0"
+]
