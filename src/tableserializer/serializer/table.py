@@ -12,6 +12,7 @@ class RawTableSerializer(ABC, SignatureProvidingInstance):
     def serialize_raw_table(self, table: Table) -> str:
         """
         Serialize a raw table to string.
+
         :param table: Raw table to serialize.
         :type table: Table
         :return: Serialized raw table.
@@ -53,6 +54,12 @@ class MarkdownRawTableSerializer(RawTableSerializer):
         return table_string[:-1]
 
 class CSVRawTableSerializer(RawTableSerializer):
+    """
+   Serializer for serializing raw tables to csv representations.
+
+   :param separator: Separator to use between values.
+   :type separator: str
+   """
 
     def __init__(self, separator=","):
         self.separator = separator
@@ -61,6 +68,9 @@ class CSVRawTableSerializer(RawTableSerializer):
         return table.as_dataframe().to_csv(index=False, sep=self.separator)
 
 class LatexRawTableSerializer(RawTableSerializer):
+    """
+   Serializer for serializing raw tables to LaTeX representations.
+   """
 
     def serialize_raw_table(self, table: Table) -> str:
         return table.as_dataframe().to_latex(index=False)

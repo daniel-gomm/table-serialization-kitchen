@@ -13,13 +13,12 @@ from tableserializer.table import Table
 class RowSampler(ABC, SignatureProvidingInstance):
     """
     A row sampler selects a subset of rows based on a predefined policy.
+
+    :param rows_to_sample: Number of rows to sample.
+    :type rows_to_sample: int
     """
 
     def __init__(self, rows_to_sample: int = 10):
-        """
-        :param rows_to_sample: Number of rows to sample.
-        :type rows_to_sample: int
-        """
         self.rows_to_sample = rows_to_sample
 
 
@@ -27,6 +26,7 @@ class RowSampler(ABC, SignatureProvidingInstance):
     def sample(self, table: Table) -> Table:
         """
         Sample rows from the given table.
+
         :param table: The table to sample from.
         :type table: Table
         :return: Table consisting of the sampled rows.
@@ -37,15 +37,14 @@ class RowSampler(ABC, SignatureProvidingInstance):
 class RandomRowSampler(RowSampler):
     """
     Samples rows randomly from the given table.
+
+    :param rows_to_sample: Number of rows to sample.
+    :type rows_to_sample: int
+    :param deterministic: Set to true to apply a deterministic seed for the sampling process. This ensures replicability.
+    :type deterministic: bool
     """
 
     def __init__(self, rows_to_sample: int = 10, deterministic: bool = True):
-        """
-        :param rows_to_sample: Number of rows to sample.
-        :type rows_to_sample: int
-        :param deterministic: Set to true to apply a deterministic seed for the sampling process. This ensures replicability.
-        :type deterministic: bool
-        """
         super().__init__(rows_to_sample)
         self.deterministic = deterministic
         self.random = random.Random()
@@ -63,6 +62,9 @@ class RandomRowSampler(RowSampler):
 class FirstRowSampler(RowSampler):
     """
     Sample the first rows from the given table.
+
+    :param rows_to_sample: Number of rows to sample.
+    :type rows_to_sample: int
     """
 
     def sample(self, table: Table) -> Table:
@@ -71,15 +73,14 @@ class FirstRowSampler(RowSampler):
 class KMeansRowSampler(RowSampler):
     """
     Use k-means clustering to sample a diverse set of rows.
+
+    :param rows_to_sample: Number of rows to sample.
+    :type rows_to_sample: int
+    :param deterministic: Set to true to apply a deterministic seed for the sampling process.
+    :type deterministic: bool
     """
 
     def __init__(self, rows_to_sample: int = 10, deterministic: bool = True):
-        """
-        :param rows_to_sample: Number of rows to sample.
-        :type rows_to_sample: int
-        :param deterministic: Set to true to apply a deterministic seed for the sampling process.
-        :type deterministic: bool
-        """
         super().__init__(rows_to_sample)
         self.deterministic = deterministic
         self.imputer = SimpleImputer(strategy='most_frequent')

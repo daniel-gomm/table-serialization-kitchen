@@ -7,7 +7,7 @@ from tableserializer.serializer.common import SignatureProvidingInstance
 
 class MetadataSerializer(ABC, SignatureProvidingInstance):
     """
-    Serializer for table-related metadata objects. Defines a strategy for serializing the metadata contents in s
+    Serializer for table-related metadata objects. Defines a strategy for serializing the metadata contents in a
     specific way.
     """
 
@@ -15,6 +15,7 @@ class MetadataSerializer(ABC, SignatureProvidingInstance):
     def serialize_metadata(self, metadata: Dict[str, Any]) -> str:
         """
         Serialize the given metadata.
+
         :param metadata: Metadata to serialize.
         :type metadata: Dict[str, Any]
         :return: String representation of the given metadata.

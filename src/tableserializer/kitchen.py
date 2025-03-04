@@ -123,6 +123,7 @@ class ExperimentalSerializerKitchen:
     def register_schema_serializer_class(self, schema_serializer_class: Type[SchemaSerializer]) -> None:
         """
         Register a custom schema serializer class to the kitchen.
+
         :param schema_serializer_class: Schema serializer class to register.
         :type schema_serializer_class: Type[SchemaSerializer]
         :rtype: None
@@ -132,6 +133,7 @@ class ExperimentalSerializerKitchen:
     def register_raw_table_serializer_class(self, table_serializer_class: Type[RawTableSerializer]) -> None:
         """
         Register a custom raw table serializer class to the kitchen.
+
         :param table_serializer_class: Raw table serializer class to register.
         :type table_serializer_class: Type[RawTableSerializer]
         :rtype: None
@@ -141,6 +143,7 @@ class ExperimentalSerializerKitchen:
     def register_metadata_serializer_class(self, metadata_serializer_class: Type[MetadataSerializer]) -> None:
         """
         Register a custom metadata serializer class to the kitchen.
+
         :param metadata_serializer_class: Metadata serializer class to register.
         :rtype: None
         """
@@ -149,6 +152,7 @@ class ExperimentalSerializerKitchen:
     def register_row_sampler_class(self, row_sampler_class: Type[RowSampler]) -> None:
         """
         Register a custom row sampler class to the kitchen.
+
         :param row_sampler_class: Row sampler class to register.
         :rtype: None
         """
@@ -157,6 +161,7 @@ class ExperimentalSerializerKitchen:
     def register_table_preprocessor_class(self, table_preprocessor_class: Type[TablePreprocessor]) -> None:
         """
         Register a custom table preprocessor class to the kitchen.
+
         :param table_preprocessor_class: Table preprocessor class to register.
         :rtype: None
         """
@@ -164,7 +169,9 @@ class ExperimentalSerializerKitchen:
 
     def create_schema_serializer(self, schema_serializer_name: str, **kwargs: Any) -> SchemaSerializer:
         """
-        Create a SchemaSerializer for the given schema serializer name. This assumes that a SchemaSerializer with the supplied name is registered.
+        Create a SchemaSerializer for the given schema serializer name. This assumes that a SchemaSerializer with the
+        supplied name is registered.
+
         :param schema_serializer_name: Name of the registered schema serializer class that should be instantiated.
         :type schema_serializer_name: str
         :param kwargs: Constructor arguments for instantiating the SchemaSerializer class.
@@ -176,7 +183,9 @@ class ExperimentalSerializerKitchen:
 
     def create_table_serializer(self, raw_table_serializer_name: str, **kwargs: Any) -> RawTableSerializer:
         """
-        Create a RawTableSerializer for the given table serializer name. This assumes that a RawTableSerializer with the supplied name is registered.
+        Create a RawTableSerializer for the given table serializer name. This assumes that a RawTableSerializer with the
+        supplied name is registered.
+
         :param raw_table_serializer_name: Name of the registered RawTableSerializer class that should be instantiated.
         :type raw_table_serializer_name: str
         :param kwargs: Constructor arguments for instantiating the RawTableSerializer class.
@@ -188,7 +197,9 @@ class ExperimentalSerializerKitchen:
 
     def create_metadata_serializer(self, metadata_serializer_name: str, **kwargs: Any) -> MetadataSerializer:
         """
-        Create a MetadataSerializer for the given metadata serializer name. This assumes that a MetadataSerializer with the supplied name is registered.
+        Create a MetadataSerializer for the given metadata serializer name. This assumes that a MetadataSerializer
+        with the supplied name is registered.
+
         :param metadata_serializer_name: Name of the registered MetadataSerializer class that should be instantiated.
         :type metadata_serializer_name: str
         :param kwargs: Constructor arguments for instantiating the MetadataSerializer class.
@@ -200,7 +211,9 @@ class ExperimentalSerializerKitchen:
 
     def create_row_sampler(self, row_sampler_name: str, rows_to_sample: int = 10, **kwargs: Any) -> RowSampler:
         """
-        Create a RowSampler for the given row sampler name. This assumes that a RowSampler with the supplied name is registered.
+        Create a RowSampler for the given row sampler name. This assumes that a RowSampler with the supplied name is
+        registered.
+
         :param row_sampler_name: Name of the registered RowSampler class that should be instantiated.
         :type row_sampler_name: str
         :param rows_to_sample: Number of rows to sample.
@@ -215,7 +228,9 @@ class ExperimentalSerializerKitchen:
 
     def create_table_preprocessor(self, table_preprocessor_name: str, **kwargs: Any) -> TablePreprocessor:
         """
-        Create a TablePreprocessor for the given table preprocessor name. This assumes that a TablePreprocessor with the supplied name is registered.
+        Create a TablePreprocessor for the given table preprocessor name. This assumes that a TablePreprocessor with
+        the supplied name is registered.
+
         :param table_preprocessor_name: Name of the registered TablePreprocessor class that should be instantiated.
         :type table_preprocessor_name: str
         :param kwargs: Constructor arguments for instantiating the TablePreprocessor class.
@@ -230,6 +245,7 @@ class ExperimentalSerializerKitchen:
         """
         Create a JSON representation of the given serializer. This representation captures the full configuration of the
         serializer, allowing instantiating an equal serializer.
+
         :param serializer: Serializer to jar up as JSON.
         :type serializer: Serializer
         :return: JSON representation of the given serializer.
@@ -261,6 +277,7 @@ class ExperimentalSerializerKitchen:
     def unjar_from_json(self, serializer_json: str) -> Serializer:
         """
         Create a serializer instance from a JSON representation of a serializer.
+
         :param serializer_json: JSON representation of a serializer.
         :type serializer_json: str
         :return: Serializer instance.
@@ -302,6 +319,7 @@ class ExperimentalSerializerKitchen:
                            table_preprocessor_constellations: List[List[TablePreprocessor]]) -> List[Serializer]:
         """
         Create serializers with different parameter configurations.
+
         :param recipes: List of recipes for which to create serializer instances.
         :type recipes: List[SerializationRecipe]
         :param metadata_serializers: List of metadata serializers for which to create serializer instances.
@@ -347,7 +365,9 @@ class ExperimentalSerializerKitchen:
 
     def save_serializer_experiment_configurations(self, serializers: List[Serializer], base_folder: str) -> None:
         """
-        Create a folder structure within a base folder and save configurations of the provided serializers into this structure
+        Create a folder structure within a base folder and save configurations of the provided serializers into this
+        structure.
+
         :param serializers: Serializers that are saved.
         :type serializers: List[Serializer]
         :param base_folder: Base folder that configuration files will be saved into.
@@ -369,6 +389,7 @@ class ExperimentalSerializerKitchen:
     def get_serializers_from_dir(self, base_folder: str) -> List[Tuple[str, Serializer]]:
         """
         Get a list of serializers that have been saved in a base folder.
+
         :param base_folder: Base folder where
         :return: A tuple (experiment_folder, )
         """
@@ -385,6 +406,7 @@ class ExperimentalSerializerKitchen:
     def run_experiments_with_serializers(self, base_folder: str, experiment_callback: Callable) -> None:
         """
         Provide a callback function and run experiments over all serializers saved in the base folder.
+
         :param base_folder: Base folder that serializer configuration files reside in.
         :type base_folder: str
         :param experiment_callback: Callback function that is invoked with a tuple (experiment_folder, serializer) (`Tuple[str, Serializer]`) for each experiment. The callback function is provided the experiment folder as string value and the associated `Serializer`.
