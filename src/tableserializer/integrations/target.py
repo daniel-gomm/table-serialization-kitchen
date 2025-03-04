@@ -140,8 +140,10 @@ class TARGETOpenAIExperimentExecutor:
                                                 query_embedding_db_path=self.query_cache_db_path,
                                                 embedding_model_name=self.embedding_model_name, embedding_batch_size=64)
         target = TARGET(("Table Retrieval Task", self.dataset_name))
-        results = target.run(retriever=retriever, split=self.split, top_k=self.top_k, batch_size=32)
-        #TODO: Handle results
+        experiment_results_folder = os.path.join(experiment_folder,
+                                                 f"results_{self.dataset_name}_{self.sanatized_embedding_model_name}")
+        results = target.run(retriever=retriever, split=self.split, top_k=self.top_k, batch_size=32,
+                             retrieval_results_dir=experiment_results_folder)
 
 class TARGETTEIExperimentExecutor:
 
@@ -166,5 +168,7 @@ class TARGETTEIExperimentExecutor:
                                           query_embedding_db_path=self.query_cache_db_path,
                                           embedding_batch_size=self.batch_size)
         target = TARGET(("Table Retrieval Task", self.dataset_name))
-        results = target.run(retriever=retriever, split=self.split, top_k=self.top_k, batch_size=32)
-        # TODO: Handle results
+        experiment_results_folder = os.path.join(experiment_folder,
+                                                 f"results_{self.dataset_name}_{self.sanatized_embedding_model_name}")
+        results = target.run(retriever=retriever, split=self.split, top_k=self.top_k, batch_size=32,
+                             retrieval_results_dir=experiment_results_folder)
