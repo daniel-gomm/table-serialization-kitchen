@@ -6,16 +6,24 @@ Use the Table Serialization Kitchen to boil your tabular data down to serializat
 ingredients and serialize your tables in no-time. You can easily spice things up by extending Table Serialization 
 Kitchen with your own serialization ideas!
 
+This blog post gives an [example of how to use table serialization kitchen for rapid experimentation with table 
+serializations.](https://daniel-gomm.github.io/blog/2025/Table-Serialization-Kitchen/)
+
 > **Disclaimer:** 
-> This project is still in the baking!
+> This project is still in the baking! Some things will still change
 
 ## What is it useful for?
-Table serializations are useful as basis for **text-embeddings**, which themselves can be used for retrieval, and to 
-prepare **tables as input to LLMs**. 
+The Table Serializer Kitchen package is essential for converting tabular data into textual formats that Large Language 
+Models (LLMs) can understand and process effectively. This process, known as table serialization, is crucial for tasks
+like question answering, and text-to-SQL generation. Additionally, table serializations are useful as basis for 
+text-embeddings for dense retrieval over tabular data. By experimenting with different serialization strategies, you can
+significantly enhance the performance of LLMs and embedding models on tabular data, making your models more accurate and
+relevant. 
 
-Table serialization kitchen gives you a solid foundation for experimenting with different table serialization approaches
-and an easy-to-service table serialization component for your system. You can easily adjust how tables are serialized in
-your system, set-up replicable experiments and find the best fit between serialization and model.
+Table serialization kitchen provides a robust foundation for exploring various table serialization approaches. It allows
+you to easily adjust how tables are serialized, set up replicable experiments, and identify the optimal serialization
+method for your specific use case. Whether you're a data scientist, NLP practitioner, or machine learning engineer,
+the Table Serializer Kitchen helps you unlock the full potential of LLMs for tasks involving structured data.
 
 ## Installation
 
@@ -35,6 +43,10 @@ pip install -e .
 ```
 
 ## Usage
+
+This description provides a high-level overview of the table serialization kitchen. For more details, consult
+[the documentation](https://daniel-gomm.github.io/table-serialization-kitchen/). If you want to see an example of the
+package in action have a look at [this blog post](https://daniel-gomm.github.io/blog/2025/Table-Serialization-Kitchen/).
 
 The central components for creating serializers with table serialization kitchen are [recipes](#recipe), 
 component serializers for [metadata](#metadata-serializers), [schema](#schema-serializers), and
