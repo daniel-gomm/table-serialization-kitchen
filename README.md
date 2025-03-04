@@ -300,4 +300,5 @@ Table serialization kitchen provides two default implementations of the `TablePr
 
 > WIP: Section still in the baking!
 
-> Hungry for more? Have a look at the [table serialization kitchen API documentation]() (Coming soon!).
+> Hungry for more? Have a look at the 
+> [table serialization kitchen API documentation](https://daniel-gomm.github.io/table-serialization-kitchen/).
