@@ -1,0 +1,465 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tableserializer.table module &mdash; Table Serializer Kitchen 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="tableserializer.utils module" href="tableserializer.utils.html" />
+    <link rel="prev" title="tableserializer.serializer module" href="tableserializer.serializer.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Table Serializer Kitchen
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="tableserializer.html">tableserializer package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="tableserializer.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="tableserializer.serializer.html">tableserializer.serializer module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">tableserializer.table module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-tableserializer.table.preprocessor">tableserializer.table.preprocessor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-tableserializer.table.row_sampler">tableserializer.table.row_sampler module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-tableserializer.table.table">tableserializer.table.table module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-tableserializer.table">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tableserializer.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tableserializer.html#module-tableserializer.recipe">tableserializer.recipe module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tableserializer.html#tableserializer-kitchen-module">tableserializer.kitchen module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tableserializer.html#module-tableserializer">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tableserializer.serializer.html">tableserializer.serializer module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">tableserializer.table module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-tableserializer.table.preprocessor">tableserializer.table.preprocessor module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tableserializer.table.preprocessor.TablePreprocessor"><code class="docutils literal notranslate"><span class="pre">TablePreprocessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tableserializer.table.preprocessor.TablePreprocessor.process"><code class="docutils literal notranslate"><span class="pre">TablePreprocessor.process()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tableserializer.table.preprocessor.ColumnDroppingPreprocessor"><code class="docutils literal notranslate"><span class="pre">ColumnDroppingPreprocessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tableserializer.table.preprocessor.ColumnDroppingPreprocessor.process"><code class="docutils literal notranslate"><span class="pre">ColumnDroppingPreprocessor.process()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tableserializer.table.preprocessor.StringTruncationPreprocessor"><code class="docutils literal notranslate"><span class="pre">StringTruncationPreprocessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tableserializer.table.preprocessor.StringTruncationPreprocessor.process"><code class="docutils literal notranslate"><span class="pre">StringTruncationPreprocessor.process()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-tableserializer.table.row_sampler">tableserializer.table.row_sampler module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tableserializer.table.row_sampler.RowSampler"><code class="docutils literal notranslate"><span class="pre">RowSampler</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tableserializer.table.row_sampler.RowSampler.sample"><code class="docutils literal notranslate"><span class="pre">RowSampler.sample()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tableserializer.table.row_sampler.RandomRowSampler"><code class="docutils literal notranslate"><span class="pre">RandomRowSampler</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tableserializer.table.row_sampler.RandomRowSampler.sample"><code class="docutils literal notranslate"><span class="pre">RandomRowSampler.sample()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tableserializer.table.row_sampler.FirstRowSampler"><code class="docutils literal notranslate"><span class="pre">FirstRowSampler</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tableserializer.table.row_sampler.FirstRowSampler.sample"><code class="docutils literal notranslate"><span class="pre">FirstRowSampler.sample()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tableserializer.table.row_sampler.KMeansRowSampler"><code class="docutils literal notranslate"><span class="pre">KMeansRowSampler</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tableserializer.table.row_sampler.KMeansRowSampler.sample"><code class="docutils literal notranslate"><span class="pre">KMeansRowSampler.sample()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-tableserializer.table.table">tableserializer.table.table module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tableserializer.table.table.Table"><code class="docutils literal notranslate"><span class="pre">Table</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tableserializer.table.table.Table.as_list_of_lists"><code class="docutils literal notranslate"><span class="pre">Table.as_list_of_lists()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tableserializer.table.table.Table.as_list_of_dicts"><code class="docutils literal notranslate"><span class="pre">Table.as_list_of_dicts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tableserializer.table.table.Table.as_dataframe"><code class="docutils literal notranslate"><span class="pre">Table.as_dataframe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-tableserializer.table">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tableserializer.utils.html">tableserializer.utils module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tableserializer.integrations.html">tableserializer.integrations module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Table Serializer Kitchen</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">&lt;no title&gt;</a></li>
+          <li class="breadcrumb-item"><a href="tableserializer.html">tableserializer package</a></li>
+      <li class="breadcrumb-item active">tableserializer.table module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/tableserializer.table.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tableserializer-table-module">
+<h1>tableserializer.table module<a class="headerlink" href="#tableserializer-table-module" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-tableserializer.table.preprocessor">
+<span id="tableserializer-table-preprocessor-module"></span><h2>tableserializer.table.preprocessor module<a class="headerlink" href="#module-tableserializer.table.preprocessor" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="tableserializer.table.preprocessor.TablePreprocessor">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tableserializer.table.preprocessor.</span></span><span class="sig-name descname"><span class="pre">TablePreprocessor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">apply_before_row_sampling</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tableserializer/table/preprocessor.html#TablePreprocessor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.table.preprocessor.TablePreprocessor" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">SignatureProvidingInstance</span></code></p>
+<p>A table preprocessor transforms a table before serialization. Generally, table preprocessors can augment the tabular
+data, compress it (e.g., by removing id columns), …</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>apply_before_row_sampling</strong> (<em>bool</em>) – Set to true to execute the preprocessor before the row sampling.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="tableserializer.table.preprocessor.TablePreprocessor.process">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><span class="pre">Table</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><span class="pre">Table</span></a></span></span><a class="reference internal" href="_modules/tableserializer/table/preprocessor.html#TablePreprocessor.process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.table.preprocessor.TablePreprocessor.process" title="Link to this definition"></a></dt>
+<dd><p>Transform a table before serialization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>table</strong> (<a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><em>Table</em></a>) – Table to preprocess.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Preprocessed table.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table">Table</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tableserializer.table.preprocessor.ColumnDroppingPreprocessor">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tableserializer.table.preprocessor.</span></span><span class="sig-name descname"><span class="pre">ColumnDroppingPreprocessor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns_to_drop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apply_before_row_sampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tableserializer/table/preprocessor.html#ColumnDroppingPreprocessor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.table.preprocessor.ColumnDroppingPreprocessor" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tableserializer.table.preprocessor.TablePreprocessor" title="tableserializer.table.preprocessor.TablePreprocessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TablePreprocessor</span></code></a></p>
+<p>Table preprocessor that transforms a table by dropping specified columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>columns_to_drop</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – List of column names of columns to drop.</p></li>
+<li><p><strong>apply_before_row_sampling</strong> (<em>bool</em>) – Set to true to execute the preprocessor before the row sampling.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="tableserializer.table.preprocessor.ColumnDroppingPreprocessor.process">
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><span class="pre">Table</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><span class="pre">Table</span></a></span></span><a class="reference internal" href="_modules/tableserializer/table/preprocessor.html#ColumnDroppingPreprocessor.process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.table.preprocessor.ColumnDroppingPreprocessor.process" title="Link to this definition"></a></dt>
+<dd><p>Transform a table before serialization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>table</strong> (<a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><em>Table</em></a>) – Table to preprocess.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Preprocessed table.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table">Table</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tableserializer.table.preprocessor.StringTruncationPreprocessor">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tableserializer.table.preprocessor.</span></span><span class="sig-name descname"><span class="pre">StringTruncationPreprocessor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_len</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apply_before_row_sampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tableserializer/table/preprocessor.html#StringTruncationPreprocessor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.table.preprocessor.StringTruncationPreprocessor" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tableserializer.table.preprocessor.TablePreprocessor" title="tableserializer.table.preprocessor.TablePreprocessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TablePreprocessor</span></code></a></p>
+<p>Table preprocessor that truncates strings in the table to a set maximum length before serialization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>max_len</strong> (<em>int</em>) – Maximum length of strings for truncation.</p></li>
+<li><p><strong>apply_before_row_sampling</strong> (<em>bool</em>) – Set to true to execute the preprocessor before the row sampling.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="tableserializer.table.preprocessor.StringTruncationPreprocessor.process">
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><span class="pre">Table</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><span class="pre">Table</span></a></span></span><a class="reference internal" href="_modules/tableserializer/table/preprocessor.html#StringTruncationPreprocessor.process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.table.preprocessor.StringTruncationPreprocessor.process" title="Link to this definition"></a></dt>
+<dd><p>Transform a table before serialization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>table</strong> (<a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><em>Table</em></a>) – Table to preprocess.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Preprocessed table.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table">Table</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-tableserializer.table.row_sampler">
+<span id="tableserializer-table-row-sampler-module"></span><h2>tableserializer.table.row_sampler module<a class="headerlink" href="#module-tableserializer.table.row_sampler" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="tableserializer.table.row_sampler.RowSampler">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tableserializer.table.row_sampler.</span></span><span class="sig-name descname"><span class="pre">RowSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rows_to_sample</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tableserializer/table/row_sampler.html#RowSampler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.table.row_sampler.RowSampler" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">SignatureProvidingInstance</span></code></p>
+<p>A row sampler selects a subset of rows based on a predefined policy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>rows_to_sample</strong> (<em>int</em>) – Number of rows to sample.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="tableserializer.table.row_sampler.RowSampler.sample">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><span class="pre">Table</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><span class="pre">Table</span></a></span></span><a class="reference internal" href="_modules/tableserializer/table/row_sampler.html#RowSampler.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.table.row_sampler.RowSampler.sample" title="Link to this definition"></a></dt>
+<dd><p>Sample rows from the given table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>table</strong> (<a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><em>Table</em></a>) – The table to sample from.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Table consisting of the sampled rows.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table">Table</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tableserializer.table.row_sampler.RandomRowSampler">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tableserializer.table.row_sampler.</span></span><span class="sig-name descname"><span class="pre">RandomRowSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rows_to_sample</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deterministic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tableserializer/table/row_sampler.html#RandomRowSampler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.table.row_sampler.RandomRowSampler" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tableserializer.table.row_sampler.RowSampler" title="tableserializer.table.row_sampler.RowSampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">RowSampler</span></code></a></p>
+<p>Samples rows randomly from the given table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rows_to_sample</strong> (<em>int</em>) – Number of rows to sample.</p></li>
+<li><p><strong>deterministic</strong> (<em>bool</em>) – Set to true to apply a deterministic seed for the sampling process. This ensures replicability.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="tableserializer.table.row_sampler.RandomRowSampler.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><span class="pre">Table</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><span class="pre">Table</span></a></span></span><a class="reference internal" href="_modules/tableserializer/table/row_sampler.html#RandomRowSampler.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.table.row_sampler.RandomRowSampler.sample" title="Link to this definition"></a></dt>
+<dd><p>Sample rows from the given table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>table</strong> (<a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><em>Table</em></a>) – The table to sample from.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Table consisting of the sampled rows.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table">Table</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tableserializer.table.row_sampler.FirstRowSampler">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tableserializer.table.row_sampler.</span></span><span class="sig-name descname"><span class="pre">FirstRowSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rows_to_sample</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tableserializer/table/row_sampler.html#FirstRowSampler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.table.row_sampler.FirstRowSampler" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tableserializer.table.row_sampler.RowSampler" title="tableserializer.table.row_sampler.RowSampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">RowSampler</span></code></a></p>
+<p>Sample the first rows from the given table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>rows_to_sample</strong> (<em>int</em>) – Number of rows to sample.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="tableserializer.table.row_sampler.FirstRowSampler.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><span class="pre">Table</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><span class="pre">Table</span></a></span></span><a class="reference internal" href="_modules/tableserializer/table/row_sampler.html#FirstRowSampler.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.table.row_sampler.FirstRowSampler.sample" title="Link to this definition"></a></dt>
+<dd><p>Sample rows from the given table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>table</strong> (<a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><em>Table</em></a>) – The table to sample from.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Table consisting of the sampled rows.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table">Table</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tableserializer.table.row_sampler.KMeansRowSampler">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tableserializer.table.row_sampler.</span></span><span class="sig-name descname"><span class="pre">KMeansRowSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rows_to_sample</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deterministic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tableserializer/table/row_sampler.html#KMeansRowSampler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.table.row_sampler.KMeansRowSampler" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tableserializer.table.row_sampler.RowSampler" title="tableserializer.table.row_sampler.RowSampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">RowSampler</span></code></a></p>
+<p>Use k-means clustering to sample a diverse set of rows.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rows_to_sample</strong> (<em>int</em>) – Number of rows to sample.</p></li>
+<li><p><strong>deterministic</strong> (<em>bool</em>) – Set to true to apply a deterministic seed for the sampling process.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="tableserializer.table.row_sampler.KMeansRowSampler.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><span class="pre">Table</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><span class="pre">Table</span></a></span></span><a class="reference internal" href="_modules/tableserializer/table/row_sampler.html#KMeansRowSampler.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.table.row_sampler.KMeansRowSampler.sample" title="Link to this definition"></a></dt>
+<dd><p>Sample rows from the given table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>table</strong> (<a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><em>Table</em></a>) – The table to sample from.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Table consisting of the sampled rows.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#tableserializer.table.table.Table" title="tableserializer.table.table.Table">Table</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-tableserializer.table.table">
+<span id="tableserializer-table-table-module"></span><h2>tableserializer.table.table module<a class="headerlink" href="#module-tableserializer.table.table" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="tableserializer.table.table.Table">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tableserializer.table.table.</span></span><span class="sig-name descname"><span class="pre">Table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_contents</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tableserializer/table/table.html#Table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.table.table.Table" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents the contents of a raw table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>table_contents</strong> (<em>Union</em><em>[</em><em>pd.DataFrame</em><em>, </em><em>List</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>List</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em>) – Table contents in one of the supported formats.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="tableserializer.table.table.Table.as_list_of_lists">
+<span class="sig-name descname"><span class="pre">as_list_of_lists</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tableserializer/table/table.html#Table.as_list_of_lists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.table.table.Table.as_list_of_lists" title="Link to this definition"></a></dt>
+<dd><p>Get the table as a list of the lists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Table as a list of the lists.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[List[str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tableserializer.table.table.Table.as_list_of_dicts">
+<span class="sig-name descname"><span class="pre">as_list_of_dicts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/tableserializer/table/table.html#Table.as_list_of_dicts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.table.table.Table.as_list_of_dicts" title="Link to this definition"></a></dt>
+<dd><p>Get the table as a list of dictionaries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Table as a list of the dictionaries.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[Dict[str, str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tableserializer.table.table.Table.as_dataframe">
+<span class="sig-name descname"><span class="pre">as_dataframe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/tableserializer/table/table.html#Table.as_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.table.table.Table.as_dataframe" title="Link to this definition"></a></dt>
+<dd><p>Get the table as a dataframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The table as a dataframe.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-tableserializer.table">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-tableserializer.table" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tableserializer.serializer.html" class="btn btn-neutral float-left" title="tableserializer.serializer module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tableserializer.utils.html" class="btn btn-neutral float-right" title="tableserializer.utils module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Daniel Gomm.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,547 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tableserializer.serializer module &mdash; Table Serializer Kitchen 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="tableserializer.table module" href="tableserializer.table.html" />
+    <link rel="prev" title="tableserializer package" href="tableserializer.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Table Serializer Kitchen
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="tableserializer.html">tableserializer package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="tableserializer.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">tableserializer.serializer module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-tableserializer.serializer.metadata">tableserializer.serializer.metadata module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-tableserializer.serializer.schema">tableserializer.serializer.schema module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-tableserializer.serializer.serializer">tableserializer.serializer.serializer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-tableserializer.serializer.table">tableserializer.serializer.table module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-tableserializer.serializer">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tableserializer.table.html">tableserializer.table module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tableserializer.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tableserializer.html#module-tableserializer.recipe">tableserializer.recipe module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tableserializer.html#tableserializer-kitchen-module">tableserializer.kitchen module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tableserializer.html#module-tableserializer">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">tableserializer.serializer module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-tableserializer.serializer.metadata">tableserializer.serializer.metadata module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tableserializer.serializer.metadata.MetadataSerializer"><code class="docutils literal notranslate"><span class="pre">MetadataSerializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tableserializer.serializer.metadata.MetadataSerializer.serialize_metadata"><code class="docutils literal notranslate"><span class="pre">MetadataSerializer.serialize_metadata()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tableserializer.serializer.metadata.PairwiseMetadataSerializer"><code class="docutils literal notranslate"><span class="pre">PairwiseMetadataSerializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tableserializer.serializer.metadata.PairwiseMetadataSerializer.serialize_metadata"><code class="docutils literal notranslate"><span class="pre">PairwiseMetadataSerializer.serialize_metadata()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tableserializer.serializer.metadata.JSONMetadataSerializer"><code class="docutils literal notranslate"><span class="pre">JSONMetadataSerializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tableserializer.serializer.metadata.JSONMetadataSerializer.serialize_metadata"><code class="docutils literal notranslate"><span class="pre">JSONMetadataSerializer.serialize_metadata()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-tableserializer.serializer.schema">tableserializer.serializer.schema module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tableserializer.serializer.schema.SchemaSerializer"><code class="docutils literal notranslate"><span class="pre">SchemaSerializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tableserializer.serializer.schema.SchemaSerializer.serialize_schema"><code class="docutils literal notranslate"><span class="pre">SchemaSerializer.serialize_schema()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tableserializer.serializer.schema.ColumnNameSchemaSerializer"><code class="docutils literal notranslate"><span class="pre">ColumnNameSchemaSerializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tableserializer.serializer.schema.ColumnNameSchemaSerializer.serialize_schema"><code class="docutils literal notranslate"><span class="pre">ColumnNameSchemaSerializer.serialize_schema()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tableserializer.serializer.schema.SQLSchemaSerializer"><code class="docutils literal notranslate"><span class="pre">SQLSchemaSerializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tableserializer.serializer.schema.SQLSchemaSerializer.serialize_schema"><code class="docutils literal notranslate"><span class="pre">SQLSchemaSerializer.serialize_schema()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-tableserializer.serializer.serializer">tableserializer.serializer.serializer module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tableserializer.serializer.serializer.Serializer"><code class="docutils literal notranslate"><span class="pre">Serializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tableserializer.serializer.serializer.Serializer.serialize"><code class="docutils literal notranslate"><span class="pre">Serializer.serialize()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-tableserializer.serializer.table">tableserializer.serializer.table module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tableserializer.serializer.table.RawTableSerializer"><code class="docutils literal notranslate"><span class="pre">RawTableSerializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tableserializer.serializer.table.RawTableSerializer.serialize_raw_table"><code class="docutils literal notranslate"><span class="pre">RawTableSerializer.serialize_raw_table()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tableserializer.serializer.table.JSONRawTableSerializer"><code class="docutils literal notranslate"><span class="pre">JSONRawTableSerializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tableserializer.serializer.table.JSONRawTableSerializer.serialize_raw_table"><code class="docutils literal notranslate"><span class="pre">JSONRawTableSerializer.serialize_raw_table()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tableserializer.serializer.table.MarkdownRawTableSerializer"><code class="docutils literal notranslate"><span class="pre">MarkdownRawTableSerializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tableserializer.serializer.table.MarkdownRawTableSerializer.serialize_raw_table"><code class="docutils literal notranslate"><span class="pre">MarkdownRawTableSerializer.serialize_raw_table()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tableserializer.serializer.table.CSVRawTableSerializer"><code class="docutils literal notranslate"><span class="pre">CSVRawTableSerializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tableserializer.serializer.table.CSVRawTableSerializer.serialize_raw_table"><code class="docutils literal notranslate"><span class="pre">CSVRawTableSerializer.serialize_raw_table()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tableserializer.serializer.table.LatexRawTableSerializer"><code class="docutils literal notranslate"><span class="pre">LatexRawTableSerializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tableserializer.serializer.table.LatexRawTableSerializer.serialize_raw_table"><code class="docutils literal notranslate"><span class="pre">LatexRawTableSerializer.serialize_raw_table()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-tableserializer.serializer">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tableserializer.table.html">tableserializer.table module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tableserializer.utils.html">tableserializer.utils module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tableserializer.integrations.html">tableserializer.integrations module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Table Serializer Kitchen</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">&lt;no title&gt;</a></li>
+          <li class="breadcrumb-item"><a href="tableserializer.html">tableserializer package</a></li>
+      <li class="breadcrumb-item active">tableserializer.serializer module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/tableserializer.serializer.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tableserializer-serializer-module">
+<h1>tableserializer.serializer module<a class="headerlink" href="#tableserializer-serializer-module" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-tableserializer.serializer.metadata">
+<span id="tableserializer-serializer-metadata-module"></span><h2>tableserializer.serializer.metadata module<a class="headerlink" href="#module-tableserializer.serializer.metadata" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="tableserializer.serializer.metadata.MetadataSerializer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tableserializer.serializer.metadata.</span></span><span class="sig-name descname"><span class="pre">MetadataSerializer</span></span><a class="reference internal" href="_modules/tableserializer/serializer/metadata.html#MetadataSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.serializer.metadata.MetadataSerializer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">SignatureProvidingInstance</span></code></p>
+<p>Serializer for table-related metadata objects. Defines a strategy for serializing the metadata contents in a
+specific way.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tableserializer.serializer.metadata.MetadataSerializer.serialize_metadata">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">serialize_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/tableserializer/serializer/metadata.html#MetadataSerializer.serialize_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.serializer.metadata.MetadataSerializer.serialize_metadata" title="Link to this definition"></a></dt>
+<dd><p>Serialize the given metadata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>metadata</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Metadata to serialize.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>String representation of the given metadata.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tableserializer.serializer.metadata.PairwiseMetadataSerializer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tableserializer.serializer.metadata.</span></span><span class="sig-name descname"><span class="pre">PairwiseMetadataSerializer</span></span><a class="reference internal" href="_modules/tableserializer/serializer/metadata.html#PairwiseMetadataSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.serializer.metadata.PairwiseMetadataSerializer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tableserializer.serializer.metadata.MetadataSerializer" title="tableserializer.serializer.metadata.MetadataSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetadataSerializer</span></code></a></p>
+<p>Metadata serializer that serializes entries in the metadata dictionary as “key: value” pairs.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tableserializer.serializer.metadata.PairwiseMetadataSerializer.serialize_metadata">
+<span class="sig-name descname"><span class="pre">serialize_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/tableserializer/serializer/metadata.html#PairwiseMetadataSerializer.serialize_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.serializer.metadata.PairwiseMetadataSerializer.serialize_metadata" title="Link to this definition"></a></dt>
+<dd><p>Serialize the given metadata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>metadata</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Metadata to serialize.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>String representation of the given metadata.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tableserializer.serializer.metadata.JSONMetadataSerializer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tableserializer.serializer.metadata.</span></span><span class="sig-name descname"><span class="pre">JSONMetadataSerializer</span></span><a class="reference internal" href="_modules/tableserializer/serializer/metadata.html#JSONMetadataSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.serializer.metadata.JSONMetadataSerializer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tableserializer.serializer.metadata.MetadataSerializer" title="tableserializer.serializer.metadata.MetadataSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">MetadataSerializer</span></code></a></p>
+<p>Metadata serializer that serializes the full metadata dictionary as JSON.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tableserializer.serializer.metadata.JSONMetadataSerializer.serialize_metadata">
+<span class="sig-name descname"><span class="pre">serialize_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/tableserializer/serializer/metadata.html#JSONMetadataSerializer.serialize_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.serializer.metadata.JSONMetadataSerializer.serialize_metadata" title="Link to this definition"></a></dt>
+<dd><p>Serialize the given metadata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>metadata</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Metadata to serialize.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>String representation of the given metadata.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-tableserializer.serializer.schema">
+<span id="tableserializer-serializer-schema-module"></span><h2>tableserializer.serializer.schema module<a class="headerlink" href="#module-tableserializer.serializer.schema" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="tableserializer.serializer.schema.SchemaSerializer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tableserializer.serializer.schema.</span></span><span class="sig-name descname"><span class="pre">SchemaSerializer</span></span><a class="reference internal" href="_modules/tableserializer/serializer/schema.html#SchemaSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.serializer.schema.SchemaSerializer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">SignatureProvidingInstance</span></code></p>
+<p>Serializer for the schema captured in the table.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tableserializer.serializer.schema.SchemaSerializer.serialize_schema">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">serialize_schema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tableserializer.table.html#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><span class="pre">Table</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/tableserializer/serializer/schema.html#SchemaSerializer.serialize_schema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.serializer.schema.SchemaSerializer.serialize_schema" title="Link to this definition"></a></dt>
+<dd><p>Serialize the schema captured in the table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table</strong> (<a class="reference internal" href="tableserializer.table.html#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><em>Table</em></a>) – The table whose schema should be serialized.</p></li>
+<li><p><strong>metadata</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em>) – Optional metadata about the table.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Serialized schema string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tableserializer.serializer.schema.ColumnNameSchemaSerializer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tableserializer.serializer.schema.</span></span><span class="sig-name descname"><span class="pre">ColumnNameSchemaSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column_name_separator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'|'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tableserializer/serializer/schema.html#ColumnNameSchemaSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.serializer.schema.ColumnNameSchemaSerializer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tableserializer.serializer.schema.SchemaSerializer" title="tableserializer.serializer.schema.SchemaSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SchemaSerializer</span></code></a></p>
+<p>Schema serializer that serializes the schema as a separated list of column names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>column_name_separator</strong> (<em>str</em>) – Separator between column names.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="tableserializer.serializer.schema.ColumnNameSchemaSerializer.serialize_schema">
+<span class="sig-name descname"><span class="pre">serialize_schema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tableserializer.table.html#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><span class="pre">Table</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/tableserializer/serializer/schema.html#ColumnNameSchemaSerializer.serialize_schema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.serializer.schema.ColumnNameSchemaSerializer.serialize_schema" title="Link to this definition"></a></dt>
+<dd><p>Serialize the schema captured in the table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table</strong> (<a class="reference internal" href="tableserializer.table.html#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><em>Table</em></a>) – The table whose schema should be serialized.</p></li>
+<li><p><strong>metadata</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em>) – Optional metadata about the table.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Serialized schema string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tableserializer.serializer.schema.SQLSchemaSerializer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tableserializer.serializer.schema.</span></span><span class="sig-name descname"><span class="pre">SQLSchemaSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata_table_name_field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'table'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tableserializer/serializer/schema.html#SQLSchemaSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.serializer.schema.SQLSchemaSerializer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tableserializer.serializer.schema.SchemaSerializer" title="tableserializer.serializer.schema.SchemaSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SchemaSerializer</span></code></a></p>
+<p>Schema serializer that serializes the schema as a SQL CREATE TABLE statement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metadata_table_name_field</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Optional: Provide the name of the field in the metadata that specifies the table name.</p></li>
+<li><p><strong>default_table_name</strong> (<em>str</em>) – Default table name used in schema when no specific table name is available through the metadata.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="tableserializer.serializer.schema.SQLSchemaSerializer.serialize_schema">
+<span class="sig-name descname"><span class="pre">serialize_schema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tableserializer.table.html#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><span class="pre">Table</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/tableserializer/serializer/schema.html#SQLSchemaSerializer.serialize_schema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.serializer.schema.SQLSchemaSerializer.serialize_schema" title="Link to this definition"></a></dt>
+<dd><p>Serialize the schema captured in the table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table</strong> (<a class="reference internal" href="tableserializer.table.html#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><em>Table</em></a>) – The table whose schema should be serialized.</p></li>
+<li><p><strong>metadata</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em>) – Optional metadata about the table.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Serialized schema string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-tableserializer.serializer.serializer">
+<span id="tableserializer-serializer-serializer-module"></span><h2>tableserializer.serializer.serializer module<a class="headerlink" href="#module-tableserializer.serializer.serializer" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="tableserializer.serializer.serializer.Serializer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tableserializer.serializer.serializer.</span></span><span class="sig-name descname"><span class="pre">Serializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">recipe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tableserializer.html#tableserializer.recipe.SerializationRecipe" title="tableserializer.recipe.SerializationRecipe"><span class="pre">SerializationRecipe</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_serializer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tableserializer.serializer.metadata.MetadataSerializer" title="tableserializer.serializer.metadata.MetadataSerializer"><span class="pre">MetadataSerializer</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_serializer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tableserializer.serializer.schema.SchemaSerializer" title="tableserializer.serializer.schema.SchemaSerializer"><span class="pre">SchemaSerializer</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_serializer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tableserializer.serializer.table.RawTableSerializer" title="tableserializer.serializer.table.RawTableSerializer"><span class="pre">RawTableSerializer</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_sampler</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tableserializer.table.html#tableserializer.table.row_sampler.RowSampler" title="tableserializer.table.row_sampler.RowSampler"><span class="pre">RowSampler</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_preprocessors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="tableserializer.table.html#tableserializer.table.preprocessor.TablePreprocessor" title="tableserializer.table.preprocessor.TablePreprocessor"><span class="pre">TablePreprocessor</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tableserializer/serializer/serializer.html#Serializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.serializer.serializer.Serializer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Serializer that serializes a given table according to a user-specified format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>recipe</strong> (<a class="reference internal" href="tableserializer.html#tableserializer.recipe.SerializationRecipe" title="tableserializer.recipe.SerializationRecipe"><em>SerializationRecipe</em></a>) – The recipe detailing the serialization.</p></li>
+<li><p><strong>metadata_serializer</strong> (<a class="reference internal" href="#tableserializer.serializer.metadata.MetadataSerializer" title="tableserializer.serializer.metadata.MetadataSerializer"><em>MetadataSerializer</em></a>) – Serializer for the table metadata. Only needed if there is metadata placeholder in the recipe.</p></li>
+<li><p><strong>schema_serializer</strong> (<a class="reference internal" href="#tableserializer.serializer.schema.SchemaSerializer" title="tableserializer.serializer.schema.SchemaSerializer"><em>SchemaSerializer</em></a>) – Serializer for the table schema. Only needed if there is schema placeholder in the recipe.</p></li>
+<li><p><strong>table_serializer</strong> (<a class="reference internal" href="#tableserializer.serializer.table.RawTableSerializer" title="tableserializer.serializer.table.RawTableSerializer"><em>RawTableSerializer</em></a>) – Serializer for the raw table. Only needed if there is table placeholder in the recipe.</p></li>
+<li><p><strong>row_sampler</strong> (<a class="reference internal" href="tableserializer.table.html#tableserializer.table.row_sampler.RowSampler" title="tableserializer.table.row_sampler.RowSampler"><em>RowSampler</em></a>) – Optional module that samples a number of rows from the raw table before serializing.</p></li>
+<li><p><strong>table_preprocessors</strong> (<em>List</em><em>[</em><a class="reference internal" href="tableserializer.table.html#tableserializer.table.preprocessor.TablePreprocessor" title="tableserializer.table.preprocessor.TablePreprocessor"><em>TablePreprocessor</em></a><em>]</em>) – Optional list of table preprocessors that transform the table before serialization.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="tableserializer.serializer.serializer.Serializer.serialize">
+<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/tableserializer/serializer/serializer.html#Serializer.serialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.serializer.serializer.Serializer.serialize" title="Link to this definition"></a></dt>
+<dd><p>Serialize a given table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table</strong> (<a class="reference internal" href="tableserializer.table.html#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><em>Table</em></a>) – Table to serialize.</p></li>
+<li><p><strong>metadata</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Metadata of the table to serialize.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>String serialization of the table.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-tableserializer.serializer.table">
+<span id="tableserializer-serializer-table-module"></span><h2>tableserializer.serializer.table module<a class="headerlink" href="#module-tableserializer.serializer.table" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="tableserializer.serializer.table.RawTableSerializer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tableserializer.serializer.table.</span></span><span class="sig-name descname"><span class="pre">RawTableSerializer</span></span><a class="reference internal" href="_modules/tableserializer/serializer/table.html#RawTableSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.serializer.table.RawTableSerializer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">SignatureProvidingInstance</span></code></p>
+<p>Serializer for serializing raw tables to string representations.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tableserializer.serializer.table.RawTableSerializer.serialize_raw_table">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">serialize_raw_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tableserializer.table.html#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><span class="pre">Table</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/tableserializer/serializer/table.html#RawTableSerializer.serialize_raw_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.serializer.table.RawTableSerializer.serialize_raw_table" title="Link to this definition"></a></dt>
+<dd><p>Serialize a raw table to string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>table</strong> (<a class="reference internal" href="tableserializer.table.html#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><em>Table</em></a>) – Raw table to serialize.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Serialized raw table.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tableserializer.serializer.table.JSONRawTableSerializer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tableserializer.serializer.table.</span></span><span class="sig-name descname"><span class="pre">JSONRawTableSerializer</span></span><a class="reference internal" href="_modules/tableserializer/serializer/table.html#JSONRawTableSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.serializer.table.JSONRawTableSerializer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tableserializer.serializer.table.RawTableSerializer" title="tableserializer.serializer.table.RawTableSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">RawTableSerializer</span></code></a></p>
+<p>Serializer for serializing raw tables to row-wise JSON representations.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tableserializer.serializer.table.JSONRawTableSerializer.serialize_raw_table">
+<span class="sig-name descname"><span class="pre">serialize_raw_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tableserializer.table.html#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><span class="pre">Table</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/tableserializer/serializer/table.html#JSONRawTableSerializer.serialize_raw_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.serializer.table.JSONRawTableSerializer.serialize_raw_table" title="Link to this definition"></a></dt>
+<dd><p>Serialize a raw table to string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>table</strong> (<a class="reference internal" href="tableserializer.table.html#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><em>Table</em></a>) – Raw table to serialize.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Serialized raw table.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tableserializer.serializer.table.MarkdownRawTableSerializer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tableserializer.serializer.table.</span></span><span class="sig-name descname"><span class="pre">MarkdownRawTableSerializer</span></span><a class="reference internal" href="_modules/tableserializer/serializer/table.html#MarkdownRawTableSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.serializer.table.MarkdownRawTableSerializer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tableserializer.serializer.table.RawTableSerializer" title="tableserializer.serializer.table.RawTableSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">RawTableSerializer</span></code></a></p>
+<p>Serializer for serializing raw tables to markdown representations.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tableserializer.serializer.table.MarkdownRawTableSerializer.serialize_raw_table">
+<span class="sig-name descname"><span class="pre">serialize_raw_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tableserializer.table.html#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><span class="pre">Table</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/tableserializer/serializer/table.html#MarkdownRawTableSerializer.serialize_raw_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.serializer.table.MarkdownRawTableSerializer.serialize_raw_table" title="Link to this definition"></a></dt>
+<dd><p>Serialize a raw table to string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>table</strong> (<a class="reference internal" href="tableserializer.table.html#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><em>Table</em></a>) – Raw table to serialize.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Serialized raw table.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tableserializer.serializer.table.CSVRawTableSerializer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tableserializer.serializer.table.</span></span><span class="sig-name descname"><span class="pre">CSVRawTableSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">','</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tableserializer/serializer/table.html#CSVRawTableSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.serializer.table.CSVRawTableSerializer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tableserializer.serializer.table.RawTableSerializer" title="tableserializer.serializer.table.RawTableSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">RawTableSerializer</span></code></a></p>
+<p>Serializer for serializing raw tables to csv representations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>separator</strong> (<em>str</em>) – Separator to use between values.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="tableserializer.serializer.table.CSVRawTableSerializer.serialize_raw_table">
+<span class="sig-name descname"><span class="pre">serialize_raw_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tableserializer.table.html#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><span class="pre">Table</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/tableserializer/serializer/table.html#CSVRawTableSerializer.serialize_raw_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.serializer.table.CSVRawTableSerializer.serialize_raw_table" title="Link to this definition"></a></dt>
+<dd><p>Serialize a raw table to string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>table</strong> (<a class="reference internal" href="tableserializer.table.html#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><em>Table</em></a>) – Raw table to serialize.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Serialized raw table.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tableserializer.serializer.table.LatexRawTableSerializer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tableserializer.serializer.table.</span></span><span class="sig-name descname"><span class="pre">LatexRawTableSerializer</span></span><a class="reference internal" href="_modules/tableserializer/serializer/table.html#LatexRawTableSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.serializer.table.LatexRawTableSerializer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tableserializer.serializer.table.RawTableSerializer" title="tableserializer.serializer.table.RawTableSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">RawTableSerializer</span></code></a></p>
+<p>Serializer for serializing raw tables to LaTeX representations.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tableserializer.serializer.table.LatexRawTableSerializer.serialize_raw_table">
+<span class="sig-name descname"><span class="pre">serialize_raw_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tableserializer.table.html#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><span class="pre">Table</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/tableserializer/serializer/table.html#LatexRawTableSerializer.serialize_raw_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tableserializer.serializer.table.LatexRawTableSerializer.serialize_raw_table" title="Link to this definition"></a></dt>
+<dd><p>Serialize a raw table to string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>table</strong> (<a class="reference internal" href="tableserializer.table.html#tableserializer.table.table.Table" title="tableserializer.table.table.Table"><em>Table</em></a>) – Raw table to serialize.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Serialized raw table.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-tableserializer.serializer">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-tableserializer.serializer" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tableserializer.html" class="btn btn-neutral float-left" title="tableserializer package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tableserializer.table.html" class="btn btn-neutral float-right" title="tableserializer.table module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Daniel Gomm.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

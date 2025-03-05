@@ -1,0 +1,188 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tableserializer.serializer.schema &mdash; Table Serializer Kitchen 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Table Serializer Kitchen
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tableserializer.html">tableserializer package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tableserializer.serializer.html">tableserializer.serializer module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tableserializer.table.html">tableserializer.table module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tableserializer.utils.html">tableserializer.utils module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tableserializer.integrations.html">tableserializer.integrations module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Table Serializer Kitchen</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">tableserializer.serializer.schema</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for tableserializer.serializer.schema</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">tableserializer.serializer.common</span> <span class="kn">import</span> <span class="n">SignatureProvidingInstance</span>
+<span class="kn">from</span> <span class="nn">tableserializer.table</span> <span class="kn">import</span> <span class="n">Table</span>
+
+
+<div class="viewcode-block" id="SchemaSerializer">
+<a class="viewcode-back" href="../../../tableserializer.serializer.html#tableserializer.serializer.schema.SchemaSerializer">[docs]</a>
+<span class="k">class</span> <span class="nc">SchemaSerializer</span><span class="p">(</span><span class="n">ABC</span><span class="p">,</span> <span class="n">SignatureProvidingInstance</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Serializer for the schema captured in the table.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SchemaSerializer.serialize_schema">
+<a class="viewcode-back" href="../../../tableserializer.serializer.html#tableserializer.serializer.schema.SchemaSerializer.serialize_schema">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">serialize_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">:</span> <span class="n">Table</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Serialize the schema captured in the table.</span>
+
+<span class="sd">        :param table: The table whose schema should be serialized.</span>
+<span class="sd">        :type table: Table</span>
+<span class="sd">        :param metadata: Optional metadata about the table.</span>
+<span class="sd">        :type metadata: Optional[Dict[str, Any]]</span>
+<span class="sd">        :return: Serialized schema string.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+</div>
+
+
+
+
+<div class="viewcode-block" id="ColumnNameSchemaSerializer">
+<a class="viewcode-back" href="../../../tableserializer.serializer.html#tableserializer.serializer.schema.ColumnNameSchemaSerializer">[docs]</a>
+<span class="k">class</span> <span class="nc">ColumnNameSchemaSerializer</span><span class="p">(</span><span class="n">SchemaSerializer</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Schema serializer that serializes the schema as a separated list of column names.</span>
+
+<span class="sd">    :param column_name_separator: Separator between column names.</span>
+<span class="sd">    :type column_name_separator: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column_name_separator</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;|&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">column_name_separator</span> <span class="o">=</span> <span class="n">column_name_separator</span>
+
+<div class="viewcode-block" id="ColumnNameSchemaSerializer.serialize_schema">
+<a class="viewcode-back" href="../../../tableserializer.serializer.html#tableserializer.serializer.schema.ColumnNameSchemaSerializer.serialize_schema">[docs]</a>
+    <span class="k">def</span> <span class="nf">serialize_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">:</span> <span class="n">Table</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">as_dataframe</span><span class="p">()</span><span class="o">.</span><span class="n">columns</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">column_name_separator</span><span class="si">}</span><span class="s2"> &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="SQLSchemaSerializer">
+<a class="viewcode-back" href="../../../tableserializer.serializer.html#tableserializer.serializer.schema.SQLSchemaSerializer">[docs]</a>
+<span class="k">class</span> <span class="nc">SQLSchemaSerializer</span><span class="p">(</span><span class="n">SchemaSerializer</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Schema serializer that serializes the schema as a SQL CREATE TABLE statement.</span>
+
+<span class="sd">    :param metadata_table_name_field: Optional: Provide the name of the field in the metadata that specifies the table name.</span>
+<span class="sd">    :type metadata_table_name_field: Optional[str]</span>
+<span class="sd">    :param default_table_name: Default table name used in schema when no specific table name is available through the metadata.</span>
+<span class="sd">    :type default_table_name: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata_table_name_field</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">default_table_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;table&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metadata_table_name_field</span> <span class="o">=</span> <span class="n">metadata_table_name_field</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_table_name</span> <span class="o">=</span> <span class="n">default_table_name</span>
+
+<div class="viewcode-block" id="SQLSchemaSerializer.serialize_schema">
+<a class="viewcode-back" href="../../../tableserializer.serializer.html#tableserializer.serializer.schema.SQLSchemaSerializer.serialize_schema">[docs]</a>
+    <span class="k">def</span> <span class="nf">serialize_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">:</span> <span class="n">Table</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">table_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_table_name</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata_table_name_field</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">table_name</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">metadata_table_name_field</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">sql</span><span class="o">.</span><span class="n">get_schema</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">as_dataframe</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">table_name</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Daniel Gomm.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
