@@ -46,7 +46,7 @@ class MarkdownRawTableSerializer(RawTableSerializer):
         for header in table.as_dataframe().columns:
             table_string += f'{header} | '
             divider_string += f'---|'
-        table_string += divider_string + " "
+        table_string += "\n" + divider_string + " "
         for row in table.as_list_of_dicts():
             table_string = table_string[:-1] + "\n| "
             for value in row.values():
